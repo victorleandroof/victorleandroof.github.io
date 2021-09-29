@@ -1,25 +1,34 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Victor Leandro</title>
-        <link>https://victorleandroof.github.io/</link>
+        <link>https://victorleandro.com.br/</link>
         <description>Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:00:18 -0300</lastBuildDate>
-            <atom:link href="https://victorleandroof.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:04:57 -0300</lastBuildDate>
+            <atom:link href="https://victorleandro.com.br/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Cassandra_mongodb</title>
-    <link>https://victorleandroof.github.io/posts/cassandra_mongodb/</link>
+    <title>Seu navegador pode ser rastreado ?</title>
+    <link>https://victorleandro.com.br/posts/rastreamento_navegador/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/rastreamento_navegador/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/cookie.jpeg" referrerpolicy="no-referrer">
+            </div>Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome.]]></description>
+</item><item>
+    <title>Cassandra vs MongoDB</title>
+    <link>https://victorleandro.com.br/posts/cassandra_mongodb/</link>
     <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandroof.github.io/posts/cassandra_mongodb/</guid>
+    <guid>https://victorleandro.com.br/posts/cassandra_mongodb/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/cassandra_mongodb.jpg" referrerpolicy="no-referrer">
             </div>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você.]]></description>
 </item><item>
     <title>Você sabe o que é Arquitetura Serverless?</title>
-    <link>https://victorleandroof.github.io/posts/serverless/</link>
+    <link>https://victorleandro.com.br/posts/serverless/</link>
     <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandroof.github.io/posts/serverless/</guid>
+    <guid>https://victorleandro.com.br/posts/serverless/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/arquitetura_serverless.jpg" referrerpolicy="no-referrer">
             </div>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.

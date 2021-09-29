@@ -1,56 +1,77 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - Victor Leandro</title>
-        <link>https://victorleandroof.github.io/tags/</link>
+        <link>https://victorleandro.com.br/tags/</link>
         <description>Tags - Tag - Victor Leandro</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:00:18 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:04:57 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>amiunique</title>
+    <link>https://victorleandro.com.br/tags/amiunique/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/amiunique/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>cookie</title>
+    <link>https://victorleandro.com.br/tags/cookie/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/cookie/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>fingerprint</title>
+    <link>https://victorleandro.com.br/tags/fingerprint/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/fingerprint/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>navegador</title>
+    <link>https://victorleandro.com.br/tags/navegador/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/navegador/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>navegg</title>
+    <link>https://victorleandro.com.br/tags/navegg/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/navegg/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>privacidade</title>
+    <link>https://victorleandro.com.br/tags/privacidade/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/privacidade/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>rastreamento</title>
+    <link>https://victorleandro.com.br/tags/rastreamento/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/rastreamento/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>segurança</title>
+    <link>https://victorleandro.com.br/tags/seguran%C3%A7a/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/seguran%C3%A7a/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>cassandra</title>
-    <link>https://victorleandroof.github.io/tags/cassandra/</link>
+    <link>https://victorleandro.com.br/tags/cassandra/</link>
     <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/cassandra/</guid>
+    <guid>https://victorleandro.com.br/tags/cassandra/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>mongodb</title>
-    <link>https://victorleandroof.github.io/tags/mongodb/</link>
+    <link>https://victorleandro.com.br/tags/mongodb/</link>
     <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/mongodb/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>nosql</title>
-    <link>https://victorleandroof.github.io/tags/nosql/</link>
-    <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/nosql/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>bass</title>
-    <link>https://victorleandroof.github.io/tags/bass/</link>
-    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/bass/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>containers</title>
-    <link>https://victorleandroof.github.io/tags/containers/</link>
-    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/containers/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>faas</title>
-    <link>https://victorleandroof.github.io/tags/faas/</link>
-    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/faas/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>serverless</title>
-    <link>https://victorleandroof.github.io/tags/serverless/</link>
-    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/serverless/</guid>
+    <guid>https://victorleandro.com.br/tags/mongodb/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

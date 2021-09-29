@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Seu navegador pode ser rastreado ? - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Seu navegador pode ser rastreado ?" />
+<meta property="og:description" content="Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandro.com.br/posts/rastreamento_navegador/" /><meta property="og:image" content="https://victorleandro.com.br/images/cookie.jpeg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-28T22:04:57-03:00" />
+<meta property="article:modified_time" content="2021-09-28T22:04:57-03:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandro.com.br/images/cookie.jpeg"/>
+
+<meta name="twitter:title" content="Seu navegador pode ser rastreado ?"/>
+<meta name="twitter:description" content="Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandro.com.br/posts/rastreamento_navegador/" /><link rel="prev" href="https://victorleandro.com.br/posts/cassandra_mongodb/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Seu navegador pode ser rastreado ?",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandro.com.br\/posts\/rastreamento_navegador\/"
+        },"image": ["https:\/\/victorleandro.com.br\/images\/cookie.jpeg"],"genre": "posts","keywords": "rastreamento, navegador, cookie, fingerprint, navegg, amiunique, privacidade, segurança","wordcount":  370 ,
+        "url": "https:\/\/victorleandro.com.br\/posts\/rastreamento_navegador\/","datePublished": "2021-09-28T22:04:57-03:00","dateModified": "2021-09-28T22:04:57-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Seu navegador pode ser rastreado ?</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="28/09/2021">28/09/2021</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;370 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;2 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/cookie.jpeg"
+        data-srcset="/images/cookie.jpeg, /images/cookie.jpeg 1.5x, /images/cookie.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/cookie.jpeg"
+        title="/images/cookie.jpeg" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><h1 id="excluir-cookies-ou-utilizar-navegação-anonima-garante-sua-privacidade-">Excluir cookies ou utilizar navegação anonima garante sua privacidade ?</h1>
+<p>Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a <a href="https://www.navegg.com/politica-de-privacidade/seu-perfil/" target="_blank" rel="noopener noreffer">Navegg</a>, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome.</p>
+<h1 id="cookies">Cookies</h1>
+<p>O Cookie é um elemento importantíssimo para protocolo http, basicamente é um arquivo texto que é injetado no seu navegador quando realizado o acesso a um determinado site, que após o fechamento do navegador os dados ainda continuam disponíveis dentro do navegador do usuário, somente o site a qual foi armazenado poderá ter acesso aos Cookies.
+Existem muitos mitos referentes ao Cookie circulando na internet, a primeira delas diz que ele pode transmitir vírus, o que não é verdade, pois o arquivo texto é muito pequeno, não permitindo que ameaças sejam inseridas. Outro mito diz que o Cookie monitora e-mails de sites alheios, o que também é mentira.
+O Cookie é muito utilizado para que os sites que possuem logins identifique você, não precisando digitar o usuário e senha, são chamados de session id ou session tokens. Funcionando como uma entrada de eventos onde é mostrado o RG aos organizadores, verificando se você esta na lista, se sim, libera sua entrada disponibilizando uma pulseira com um código não sendo necessário que mostre o RG.</p>
+<h1 id="ok-então-se-eu-apagar-esses-cookies-não-tem-como-me-rastrear">Ok, então se eu apagar esses cookies não tem como me rastrear?</h1>
+<p>Infelizmente não, existe uma grande probabilidade de identificar seu navegador pelas características existentes, tecnologia esta identificada como fingerprint. Basicamente o site manda instruções em javascript, onde consegue obter determinadas características do seu navegador e enviar novamente para o site.</p>
+<p>As características capturadas são aquelas que não iram mudar mesmo se você limpar os cookies, por exemplo: versão exata do navegador, versão do sistema operacional, tamanho da tela, horário da sua maquina, fontes, opções do navegador que estão desativados. O site que mostra todos os parâmetros utilizados é o <a href="https://amiunique.org/fp" target="_blank" rel="noopener noreffer">Am I Unique</a>?
+Qual sua opinião sobre isso? você concorda ou acha que invasão de privacidade ?</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 28/09/2021</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandro.com.br/posts/rastreamento_navegador/" data-title="Seu navegador pode ser rastreado ?" data-via="https://twitter.com/victorleandroof" data-hashtags="rastreamento,navegador,cookie,fingerprint,navegg,amiunique,privacidade,segurança"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rastreamento/">rastreamento</a>,&nbsp;<a href="/tags/navegador/">navegador</a>,&nbsp;<a href="/tags/cookie/">cookie</a>,&nbsp;<a href="/tags/fingerprint/">fingerprint</a>,&nbsp;<a href="/tags/navegg/">navegg</a>,&nbsp;<a href="/tags/amiunique/">amiunique</a>,&nbsp;<a href="/tags/privacidade/">privacidade</a>,&nbsp;<a href="/tags/seguran%C3%A7a/">segurança</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/cassandra_mongodb/" class="prev" rel="prev" title="Cassandra vs MongoDB"><i class="fas fa-angle-left fa-fw"></i>Cassandra vs MongoDB</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

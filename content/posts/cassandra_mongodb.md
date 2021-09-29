@@ -1,5 +1,5 @@
 ---
-title: "Cassandra_mongodb"
+title: "Cassandra vs MongoDB"
 date: 2021-09-28T22:00:18-03:00
 draft: false
 tags: [mongodb, cassandra, nosql]

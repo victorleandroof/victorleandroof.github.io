@@ -1,7 +1,7 @@
 ---
 title: "Seu navegador pode ser rastreado ?"
 date: 2021-09-28T22:04:57-03:00
-draft: true
+draft: false
 tags: [rastreamento, navegador, cookie, fingerprint, navegg, amiunique, privacidade, segurança]
 featuredImage: "/images/cookie.jpeg"
 featuredImagePreview: "/images/cookie.jpeg"
