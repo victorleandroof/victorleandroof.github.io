@@ -1,0 +1,56 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - Victor Leandro</title>
+        <link>https://victorleandro.com.br/tags/</link>
+        <description>Tags - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:00:18 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>cassandra</title>
+    <link>https://victorleandro.com.br/tags/cassandra/</link>
+    <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/cassandra/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>mongodb</title>
+    <link>https://victorleandro.com.br/tags/mongodb/</link>
+    <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/mongodb/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>nosql</title>
+    <link>https://victorleandro.com.br/tags/nosql/</link>
+    <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/nosql/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>bass</title>
+    <link>https://victorleandro.com.br/tags/bass/</link>
+    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/bass/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>containers</title>
+    <link>https://victorleandro.com.br/tags/containers/</link>
+    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/containers/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>faas</title>
+    <link>https://victorleandro.com.br/tags/faas/</link>
+    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/faas/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>serverless</title>
+    <link>https://victorleandro.com.br/tags/serverless/</link>
+    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/serverless/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>

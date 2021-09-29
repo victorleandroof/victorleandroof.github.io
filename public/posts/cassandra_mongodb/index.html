@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Cassandra_mongodb - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Cassandra_mongodb" />
+<meta property="og:description" content="Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandro.com.br/posts/cassandra_mongodb/" /><meta property="og:image" content="https://victorleandro.com.br/images/cassandra_mongodb.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-28T22:00:18-03:00" />
+<meta property="article:modified_time" content="2021-09-28T22:00:18-03:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandro.com.br/images/cassandra_mongodb.jpg"/>
+
+<meta name="twitter:title" content="Cassandra_mongodb"/>
+<meta name="twitter:description" content="Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandro.com.br/posts/cassandra_mongodb/" /><link rel="prev" href="https://victorleandro.com.br/posts/serverless/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Cassandra_mongodb",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandro.com.br\/posts\/cassandra_mongodb\/"
+        },"image": ["https:\/\/victorleandro.com.br\/images\/cassandra_mongodb.jpg"],"genre": "posts","keywords": "mongodb, cassandra, nosql","wordcount":  615 ,
+        "url": "https:\/\/victorleandro.com.br\/posts\/cassandra_mongodb\/","datePublished": "2021-09-28T22:00:18-03:00","dateModified": "2021-09-28T22:00:18-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Cassandra_mongodb</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="28/09/2021">28/09/2021</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;615 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;3 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/cassandra_mongodb.jpg"
+        data-srcset="/images/cassandra_mongodb.jpg, /images/cassandra_mongodb.jpg 1.5x, /images/cassandra_mongodb.jpg 2x"
+        data-sizes="auto"
+        alt="/images/cassandra_mongodb.jpg"
+        title="/images/cassandra_mongodb.jpg" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você. Você está em uma situação ideal ficando com bancos de dados sociais convencionais como MySQL, PostgreSQL, Oracle e assim por diante. Uma vez que temos bases de dados sociais fora do caminho comum, que tal considerarmos os contrastes reais entre o Cassandra e o MongoDB que permitirão que você escolha um deles.</p>
+<h1 id="1-modelo-de-objeto-expressivo">1. Modelo de Objeto Expressivo</h1>
+<p>O MongoDB reforça um modelo de objetos rico e expressivo. Objetos podem ter propriedades e objetos podem ser resolvidos uns nos outros (para vários níveis). Este modelo é excepcionalmente “situado em um objeto” e pode, sem muito esforço, falar com qualquer estrutura de objeto em seu espaço. Você também pode arquivar a propriedade de qualquer objeto em qualquer nível da progressão — isso é surpreendentemente eficaz! Cassandra, então, novamente, oferece uma estrutura de tabela genuinamente costumeira com linhas e segmentos. A informação é mais organizada e cada segmento tem um tipo específico que pode ser indicado em meio à criação.
+Decisão: Se a sua área de interesse precisa de um modelo rico de informações, o MongoDB é um ajuste superior para você.</p>
+<h1 id="2-índices-secundários">2. Índices Secundários</h1>
+<p>Índices secundários são um dos melhores da linha no MongoDB. Isso simplifica o registro de qualquer propriedade de um objeto guardada no MongoDB, independentemente de estar resolvida. Isso torna extremamente simples a consulta em vista desses índices secundários. Cassandra tem apenas ajuda rápida para índices secundários. Índices secundários também são restritos a segmentos únicos e correlações de correspondência. No caso em que você está em sua maior parte indo para a consulta pela chave essencial, então Cassandra funcionará admiravelmente para você.
+Decisão: Se a sua aplicação precisar de índices secundários e precisar de adaptabilidade no modelo de consulta, o MongoDB é um ajuste superior para você.</p>
+<h1 id="3-alta-disponibilidade">3. Alta Disponibilidade</h1>
+<p>O MongoDB sustenta um modelo “único mestre”. Isso implica que você tenha um nó mestre e vários nós escravos. Na chance de que o mestre caia, um dos escravos é escolhido como mestre. Este procedimento acontece naturalmente ainda requer investimento, como regra 10–40 segundos. Em meio a esta temporada de nova decisão pioneira, o seu conjunto de reprodução está desativado e não pode ser composto. Isso funciona para a maioria das aplicações no final do dia depende de suas necessidades. Cassandra reforça um modelo “múltiplo mestre”. A passagem de um único nó não influencia a capacidade do grupo, assim você pode obter 100% de tempo de atividade para composições.
+Decisão: Se você precisar de 100% de tempo de atividade, Cassandra é um ajuste superior para você.</p>
+<h1 id="4-escalabilidade">4. Escalabilidade</h1>
+<p>O MongoDB com seu modelo de “mestre único” pode compor apenas o essencial. Os servidores secundários devem ser utilizados para leitura. Então, basicamente, na chance de que você tenha três conjuntos de reprodução de nó, apenas o mestre está fazendo composições e os outros dois nós são utilizados para leitura. Isto constrange extraordinariamente compõe adaptabilidade. Você pode transmitir vários fragmentos, mas basicamente apenas 1/3 dos seus nós de informação podem fazer composições. Cassandra com seu modelo “multiple master” pode fazer composições em qualquer servidor. Basicamente, sua capacidade de composição é limitada pela quantidade de servidores que você tem no grupo. Quanto mais servidores você tiver no grupo, melhor será dimensionado.
+Decisão: Se escalabilidade é seu objetivo, Cassandra é um ajuste superior para você.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 28/09/2021</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandro.com.br/posts/cassandra_mongodb/" data-title="Cassandra_mongodb" data-via="https://twitter.com/victorleandroof" data-hashtags="mongodb,cassandra,nosql"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mongodb/">mongodb</a>,&nbsp;<a href="/tags/cassandra/">cassandra</a>,&nbsp;<a href="/tags/nosql/">nosql</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/serverless/" class="prev" rel="prev" title="Você sabe o que é Arquitetura Serverless?"><i class="fas fa-angle-left fa-fw"></i>Você sabe o que é Arquitetura Serverless?</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

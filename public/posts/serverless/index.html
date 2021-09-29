@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Você sabe o que é Arquitetura Serverless? - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Você sabe o que é Arquitetura Serverless?" />
+<meta property="og:description" content="Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.
+Backend as a Service (BaaS) Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandro.com.br/posts/serverless/" /><meta property="og:image" content="https://victorleandro.com.br/images/arquitetura_serverless.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-28T20:39:07-03:00" />
+<meta property="article:modified_time" content="2021-09-28T20:39:07-03:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandro.com.br/images/arquitetura_serverless.jpg"/>
+
+<meta name="twitter:title" content="Você sabe o que é Arquitetura Serverless?"/>
+<meta name="twitter:description" content="Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.
+Backend as a Service (BaaS) Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandro.com.br/posts/serverless/" /><link rel="next" href="https://victorleandro.com.br/posts/cassandra_mongodb/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Você sabe o que é Arquitetura Serverless?",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandro.com.br\/posts\/serverless\/"
+        },"image": ["https:\/\/victorleandro.com.br\/images\/arquitetura_serverless.jpg"],"genre": "posts","keywords": "serverless, bass, faas, containers","wordcount":  309 ,
+        "url": "https:\/\/victorleandro.com.br\/posts\/serverless\/","datePublished": "2021-09-28T20:39:07-03:00","dateModified": "2021-09-28T20:39:07-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Você sabe o que é Arquitetura Serverless?</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="28/09/2021">28/09/2021</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;309 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;2 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/arquitetura_serverless.jpg"
+        data-srcset="/images/arquitetura_serverless.jpg, /images/arquitetura_serverless.jpg 1.5x, /images/arquitetura_serverless.jpg 2x"
+        data-sizes="auto"
+        alt="/images/arquitetura_serverless.jpg"
+        title="/images/arquitetura_serverless.jpg" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.</p>
+<h1 id="backend-as-a-service-baas">Backend as a Service (BaaS)</h1>
+<p>Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware. O mesmo fornece aos desenvolvedores uma forma para conectar suas aplicações mobile e web a serviços na nuvem a partir de APIs e SDKs. Um exemplo de BaaS e o firebase.</p>
+<h1 id="function-as-a-service-faas">Function as a Service (FaaS)</h1>
+<p>A FaaS é muito recente foi disponibilizado inicialmente pela Hook.io em 2014 e seguido por grandes players: Amazon AWS Lambda, Google Cloud Functions, MS Azure Functions, IBM / Apache OpenWhisk e recentemente até Oracle Cloud Fn.
+Usando FaaS, seu código é executado em resposta a eventos definidos por você. Porém, os recursos computacionais você não administra ou controla. Deve-se focar na construção de aplicações que respondam mais rápido às mudanças e às novas informações.</p>
+<h1 id="baas-e-faas--vantagens---martin-fowler-">BaaS e FaaS — Vantagens — ( Martin fowler )</h1>
+<p>Custo de estabilidades reduzidos (paga somente por tempo de execução é memória alocado alocada para função ou quantidade de operações e armazenamento)
+Custo operacionais reduzidos ou gratuitos
+Custo desenvolvimento reduzidos</p>
+<h1 id="baas-e-faas--desvantagens---martin-fowler-">BaaS e FaaS — Desvantagens — ( Martin fowler )</h1>
+<p>Lock-in de provedores Clouds ( Pode ser resolvido através framework open source como Serverless Framework)
+Repetição de lógica na camada cliente (Somente na BaaS)
+Sempre stateless</p>
+<h1 id="diferença-entre-serveless-e-containers-">Diferença entre Serveless e Containers ?</h1>
+<p>Containers ainda são “pesados” operacionalmente se comparados com Serverless. Você precisa de soluções de gestão como Kubernetes ou Docker Swarm. Porém Containers são mais portáveis.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 28/09/2021</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandro.com.br/posts/serverless/" data-title="Você sabe o que é Arquitetura Serverless?" data-via="https://twitter.com/victorleandroof" data-hashtags="serverless,bass,faas,containers"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/serverless/">serverless</a>,&nbsp;<a href="/tags/bass/">bass</a>,&nbsp;<a href="/tags/faas/">faas</a>,&nbsp;<a href="/tags/containers/">containers</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/cassandra_mongodb/" class="next" rel="next" title="Cassandra_mongodb">Cassandra_mongodb<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
