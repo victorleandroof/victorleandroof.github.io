@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>lei_benford - Tag - Victor Leandro</title>
+        <link>https://victorleandro.com.br/tags/lei_benford/</link>
+        <description>lei_benford - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 12 Oct 2021 08:40:12 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/lei_benford/" rel="self" type="application/rss+xml" /><item>
+    <title>A beleza dos padrões numéricos</title>
+    <link>https://victorleandro.com.br/posts/benford_law/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/benford_law/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/benford_law.jpg" referrerpolicy="no-referrer">
+            </div>Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
+A magica da lei de benford Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:]]></description>
+</item></channel>
+</rss>

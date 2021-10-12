@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>A beleza dos padrões numéricos - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="A beleza dos padrões numéricos" />
+<meta property="og:description" content="Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
+A magica da lei de benford Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandro.com.br/posts/benford_law/" /><meta property="og:image" content="https://victorleandro.com.br/images/benford_law.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-12T08:40:12-03:00" />
+<meta property="article:modified_time" content="2021-10-12T08:40:12-03:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandro.com.br/images/benford_law.jpg"/>
+
+<meta name="twitter:title" content="A beleza dos padrões numéricos"/>
+<meta name="twitter:description" content="Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
+A magica da lei de benford Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:"/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandro.com.br/posts/benford_law/" /><link rel="prev" href="https://victorleandro.com.br/posts/rastreamento_navegador/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A beleza dos padrões numéricos",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandro.com.br\/posts\/benford_law\/"
+        },"image": ["https:\/\/victorleandro.com.br\/images\/benford_law.jpg"],"genre": "posts","keywords": "matemática, lei_benford, benford, padrões, numéricos","wordcount":  357 ,
+        "url": "https:\/\/victorleandro.com.br\/posts\/benford_law\/","datePublished": "2021-10-12T08:40:12-03:00","dateModified": "2021-10-12T08:40:12-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">A beleza dos padrões numéricos</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="12/10/2021">12/10/2021</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;357 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;2 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/benford_law.jpg"
+        data-srcset="/images/benford_law.jpg, /images/benford_law.jpg 1.5x, /images/benford_law.jpg 2x"
+        data-sizes="auto"
+        alt="/images/benford_law.jpg"
+        title="/images/benford_law.jpg" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?</p>
+<h1 id="a-magica-da-lei-de-benford">A magica da lei de benford</h1>
+<p>Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/benford_example.png"
+        data-srcset="/images/benford_example.png, /images/benford_example.png 1.5x, /images/benford_example.png 2x"
+        data-sizes="auto"
+        alt="/images/benford_example.png"
+        title="Exemplo da lei de benford" /></p>
+<p>O gráfico possui uma curva de forma logarítmica denominada de curva de benford. Um pouco difícil acreditar nessa loucura de frequência numérica ou ate mesmo pouco improvável de acontecer. Mark Nigrini em  2001 utilizando da lei de benford trouxe a atona uma das maiores fraudes, a empresa Enron estava usando lacunas contábeis para esconder bilhões de dólares de dívidas incobráveis ​​ao mesmo tempo em que inflacionava os ganhos da empresa. Caso tenha interesse compreender como foi aplicado a lei nos dados da empresa segue repositório <a href="https://github.com/mauriciomani/ENRON-Benford-s-law" target="_blank" rel="noopener noreffer">click aqui</a>.</p>
+<h1 id="lei-de-benford-aplicada-aos-dados-do-siconv">lei de benford aplicada aos dados do SICONV</h1>
+<p>Utilizando a lei de benford criei uma analise baseado nos dados SICONV ( sistema utilizado para captação de recursos para os Municípios e Entidades do Brasil) selecionei dois deputados sendo eles Jean Wyllys e Eduardo Bolsonaro
+em ambos casos a lei de benford foi violada. Porém não podemos afirmar se realmente se ambos estão ou estavam  cometendo um ato de corrupção teria que ter uma analise mais afundo.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/benford_jean_wyllys.png"
+        data-srcset="/images/benford_jean_wyllys.png, /images/benford_jean_wyllys.png 1.5x, /images/benford_jean_wyllys.png 2x"
+        data-sizes="auto"
+        alt="/images/benford_jean_wyllys.png"
+        title="Benford aplicado aos valores do deputado Jean Wyllys" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/benford_eduardo_bolsonaro.png"
+        data-srcset="/images/benford_eduardo_bolsonaro.png, /images/benford_eduardo_bolsonaro.png 1.5x, /images/benford_eduardo_bolsonaro.png 2x"
+        data-sizes="auto"
+        alt="/images/benford_eduardo_bolsonaro.png"
+        title="Benford aplicado aos valores do deputado Eduardo Bolsonaro" /></p>
+<p>A Lei de Benford pode reconhecer as probabilidades de frequências altamente prováveis ou altamente improváveis de números em um conjunto de dados, se pararmos para refletir é incrível que uma lei possa encontrar uma ordem matemática mesmo com todo os a casos, e aleatoriedade e confusão da nossas vidas.</p>
+<p>fontes:</p>
+<p><a href="https://www.researchgate.net/publication/228386443_Election_forensics_the_second-digit_Benford%27s_law_test_and_recent_American_presidential_elections" target="_blank" rel="noopener noreffer">Election forensics: the second-digit Benford&rsquo;s law test and recent American presidential elections</a></p>
+<p><a href="https://revistas.ufrj.br/index.php/scg/article/download/13290/9112" target="_blank" rel="noopener noreffer">A Confiabilidade dos Dados Financeiros de Hospitais Filantrópicos Canadenses: Um Estudo Empírico Baseado na Lei de Benford</a></p>
+<p><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0135169" target="_blank" rel="noopener noreffer">Benford’s Law Applies to Online Social Networks</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 12/10/2021</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandro.com.br/posts/benford_law/" data-title="A beleza dos padrões numéricos" data-via="https://twitter.com/victorleandroof" data-hashtags="matemática,lei_benford,benford,padrões,numéricos"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/matem%C3%A1tica/">matemática</a>,&nbsp;<a href="/tags/lei_benford/">lei_benford</a>,&nbsp;<a href="/tags/benford/">benford</a>,&nbsp;<a href="/tags/padr%C3%B5es/">padrões</a>,&nbsp;<a href="/tags/num%C3%A9ricos/">numéricos</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/rastreamento_navegador/" class="prev" rel="prev" title="Seu navegador pode ser rastreado ?"><i class="fas fa-angle-left fa-fw"></i>Seu navegador pode ser rastreado ?</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

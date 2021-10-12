@@ -1,7 +1,7 @@
 ---
 title: "A beleza dos padrões numéricos"
 date: 2021-10-12T08:40:12-03:00
-draft: true
+draft: false
 tags: [matemática, lei_benford, benford, padrões, numéricos]
 featuredImage: "/images/benford_law.jpg"
 featuredImagePreview: "/images/benford_law.jpg"
