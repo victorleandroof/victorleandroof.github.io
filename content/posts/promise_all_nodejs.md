@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Desvendando o 'Promise.all': Faça Seu Código Node.js Voar Alto e Rápido"
 date: 2023-06-18T13:30:12-03:00
 draft: false
 tags: [nodejs, promises, perfomance, boas_praticas_nodejs, promise.all]
