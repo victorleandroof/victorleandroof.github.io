@@ -1,21 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>bass on Victor Leandro</title>
-    <link>https://victorleandro.com.br/tags/bass/</link>
-    <description>Recent content in bass on Victor Leandro</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Tue, 28 Sep 2021 20:39:07 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/bass/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Você sabe o que é Arquitetura Serverless?</title>
-      <link>https://victorleandro.com.br/posts/serverless/</link>
-      <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/serverless/</guid>
-      <description>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.
-Backend as a Service (BaaS) Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware.</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>bass - Tag - Victor Leandro</title>
+        <link>https://victorleandro.com.br/tags/bass/</link>
+        <description>bass - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 20:39:07 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/bass/" rel="self" type="application/rss+xml" /><item>
+    <title>Você sabe o que é Arquitetura Serverless?</title>
+    <link>https://victorleandro.com.br/posts/serverless/</link>
+    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/serverless/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/arquitetura_serverless.jpg" referrerpolicy="no-referrer">
+            </div>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.
+Backend as a Service (BaaS) Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware.]]></description>
+</item></channel>
 </rss>

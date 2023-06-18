@@ -1,59 +1,57 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Victor Leandro</title>
-    <link>https://victorleandro.com.br/</link>
-    <description>Recent content on Victor Leandro</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Sun, 18 Jun 2023 14:01:34 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido</title>
-      <link>https://victorleandro.com.br/posts/promise_all_nodejs/</link>
-      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/promise_all_nodejs/</guid>
-      <description>Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!
-O que é Promises ?</description>
-    </item>
-    
-    <item>
-      <title>A beleza dos padrões numéricos</title>
-      <link>https://victorleandro.com.br/posts/benford_law/</link>
-      <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/benford_law/</guid>
-      <description>Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
-A magica da lei de benford Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:</description>
-    </item>
-    
-    <item>
-      <title>Seu navegador pode ser rastreado ?</title>
-      <link>https://victorleandro.com.br/posts/rastreamento_navegador/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/rastreamento_navegador/</guid>
-      <description>Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome.</description>
-    </item>
-    
-    <item>
-      <title>Cassandra vs MongoDB</title>
-      <link>https://victorleandro.com.br/posts/cassandra_mongodb/</link>
-      <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/cassandra_mongodb/</guid>
-      <description>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você.</description>
-    </item>
-    
-    <item>
-      <title>Você sabe o que é Arquitetura Serverless?</title>
-      <link>https://victorleandro.com.br/posts/serverless/</link>
-      <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/serverless/</guid>
-      <description>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.
-Backend as a Service (BaaS) Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware.</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Victor Leandro</title>
+        <link>https://victorleandro.com.br/</link>
+        <description>Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 18 Jun 2023 14:01:34 -0300</lastBuildDate>
+            <atom:link href="https://victorleandro.com.br/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido</title>
+    <link>https://victorleandro.com.br/posts/promise_all_nodejs/</link>
+    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/promise_all_nodejs/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/nodejs_promises.png" referrerpolicy="no-referrer">
+            </div>Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!
+O que é Promises ?]]></description>
+</item><item>
+    <title>A beleza dos padrões numéricos</title>
+    <link>https://victorleandro.com.br/posts/benford_law/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/benford_law/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/benford_law.jpg" referrerpolicy="no-referrer">
+            </div>Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
+A magica da lei de benford Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:]]></description>
+</item><item>
+    <title>Seu navegador pode ser rastreado ?</title>
+    <link>https://victorleandro.com.br/posts/rastreamento_navegador/</link>
+    <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/rastreamento_navegador/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/cookie.jpeg" referrerpolicy="no-referrer">
+            </div>Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome.]]></description>
+</item><item>
+    <title>Cassandra vs MongoDB</title>
+    <link>https://victorleandro.com.br/posts/cassandra_mongodb/</link>
+    <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/cassandra_mongodb/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/cassandra_mongodb.jpg" referrerpolicy="no-referrer">
+            </div>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você.]]></description>
+</item><item>
+    <title>Você sabe o que é Arquitetura Serverless?</title>
+    <link>https://victorleandro.com.br/posts/serverless/</link>
+    <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/serverless/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/arquitetura_serverless.jpg" referrerpolicy="no-referrer">
+            </div>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.
+Backend as a Service (BaaS) Com cloud estabilizado o controle sobre as virtuais machines foi deixado lado dando inicio a era BaaS, ele é um serviço de computação em nuvem que serve como middleware.]]></description>
+</item></channel>
 </rss>

@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>nosql on Victor Leandro</title>
-    <link>https://victorleandro.com.br/tags/nosql/</link>
-    <description>Recent content in nosql on Victor Leandro</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Tue, 28 Sep 2021 22:00:18 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/nosql/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Cassandra vs MongoDB</title>
-      <link>https://victorleandro.com.br/posts/cassandra_mongodb/</link>
-      <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/posts/cassandra_mongodb/</guid>
-      <description>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você.</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>nosql - Tag - Victor Leandro</title>
+        <link>https://victorleandro.com.br/tags/nosql/</link>
+        <description>nosql - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:00:18 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/nosql/" rel="self" type="application/rss+xml" /><item>
+    <title>Cassandra vs MongoDB</title>
+    <link>https://victorleandro.com.br/posts/cassandra_mongodb/</link>
+    <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/cassandra_mongodb/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/cassandra_mongodb.jpg" referrerpolicy="no-referrer">
+            </div>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você.]]></description>
+</item></channel>
 </rss>

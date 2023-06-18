@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido" />
+<meta property="og:description" content="Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!
+O que é Promises ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandro.com.br/posts/promise_all_nodejs/" /><meta property="og:image" content="https://victorleandro.com.br/images/nodejs_promises.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-18T14:01:34-03:00" />
+<meta property="article:modified_time" content="2023-06-18T14:01:34-03:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandro.com.br/images/nodejs_promises.png"/>
+
+<meta name="twitter:title" content="Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido"/>
+<meta name="twitter:description" content="Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!
+O que é Promises ?"/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandro.com.br/posts/promise_all_nodejs/" /><link rel="prev" href="https://victorleandro.com.br/posts/benford_law/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Desvendando o 'Promise.all': Faça Seu Código Node.js Voar Alto e Rápido",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandro.com.br\/posts\/promise_all_nodejs\/"
+        },"image": ["https:\/\/victorleandro.com.br\/images\/nodejs_promises.png"],"genre": "posts","keywords": "nodejs, promises, perfomance, boas_praticas_nodejs, promise.all","wordcount":  570 ,
+        "url": "https:\/\/victorleandro.com.br\/posts\/promise_all_nodejs\/","datePublished": "2023-06-18T14:01:34-03:00","dateModified": "2023-06-18T14:01:34-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="18/06/2023">18/06/2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;570 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;3 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/nodejs_promises.png"
+        data-srcset="/images/nodejs_promises.png, /images/nodejs_promises.png 1.5x, /images/nodejs_promises.png 2x"
+        data-sizes="auto"
+        alt="/images/nodejs_promises.png"
+        title="/images/nodejs_promises.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#o-que-é-promises-">O que é Promises ?</a></li>
+    <li><a href="#onde-entra-o-promiseall-">Onde entra o Promise.all ?</a></li>
+    <li><a href="#promiseall-vs-asyncawait">Promise.all vs Async/Await</a>
+      <ul>
+        <li><a href="#ferramentas">Ferramentas</a></li>
+        <li><a href="#tempo-de-resposta">Tempo de Resposta</a></li>
+        <li><a href="#uso-de-cpu">Uso de CPU</a></li>
+        <li><a href="#uso-de-memoria">Uso de Memoria</a></li>
+      </ul>
+    </li>
+    <li><a href="#github-links">Github Links</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!</p>
+<h2 id="o-que-é-promises-">O que é Promises ?</h2>
+<p>O conceito de Promises foi inicialmente proposto por Daniel P. Friedman, David Wise e Peter Hibbard em 1976. No entanto, foi somente em 2007, com a introdução da biblioteca MochiKit, seguida por Dojo e jQuery, que as Promises fizeram sua primeira aparição no JavaScript. Mais tarde, o time da CommonJS desenvolveu o padrão Promises/A+.</p>
+<p>O objetivo fundamental desse conceito é permitir que o código não interrompa o que estamos fazendo. Para ilustrar vamos analisar o seguinte exemplo: imagine que você precise ler quatro arquivos independentes e para cada arquivo lido, você precisa executar uma ação específica. Se você usasse a função <strong><code>readFileSync</code></strong>, o tempo de execução seria somado, levando em consideração que cada leitura leva cerca de dois segundos. Isso significa que, ao final, você teria um tempo total de oito segundos, pois os arquivos seriam lidos um após o outro. E ai que entra conceito de promises vocês pode fazer leitura de forma assíncrona, conforme o imagem abaixo:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/nodejs-sync-vs-async.png"
+        data-srcset="/images/nodejs-sync-vs-async.png, /images/nodejs-sync-vs-async.png 1.5x, /images/nodejs-sync-vs-async.png 2x"
+        data-sizes="auto"
+        alt="/images/nodejs-sync-vs-async.png"
+        title="Exemplo do resultado sync e async" /></p>
+<h2 id="onde-entra-o-promiseall-">Onde entra o Promise.all ?</h2>
+<p>Agora que temos uma melhor clareza no básico do conceito de Promises, vamos considerar o seguinte cenário utilizando <strong><code>async/await</code></strong>: imagine que temos uma aplicação que realiza duas chamadas de API, uma para buscar usuários (<strong><code>users</code></strong>) e outra para buscar grupos (<strong><code>groups</code></strong>). No final, precisamos mesclar os grupos em que os usuários estão. Suponha que a chamada para buscar usuários leva, em média, 2 segundos para responder, enquanto a chamada para buscar grupos leva cerca de 3 segundos. O processo de mesclagem das duas APIs leva 1 segundo adicional. Ao utilizar <strong><code>async/await</code></strong>, o tempo total de processamento seria de 6 segundos, uma vez que teríamos que esperar cada Promise ser resolvida sequencialmente.</p>
+<p>Agora, vamos imaginar a possibilidade de executar as chamadas para grupos e usuários em paralelo e em seguida receber os resultados de ambas para realizar a mesclagem. Se pudéssemos fazer isso, teríamos um tempo total de processamento de apenas 4 segundos. Essa redução ocorreria porque as duas chamadas de API seriam executadas simultaneamente, aproveitando o tempo máximo de resposta (nesse caso, 3 segundos) e em seguida, o processo de mesclagem seria executado em 1 segundo adicional. Parece mágico, não é? Na verdade, é apenas o <strong><code>Promise.all</code></strong> em ação, um recurso disponível tanto nos navegadores quanto no Node.js. No entanto, muitos desenvolvedores acabam se esquecendo de utilizá-lo, perdendo a oportunidade de melhorar significativamente a eficiência do seu código.</p>
+<h2 id="promiseall-vs-asyncawait">Promise.all vs Async/Await</h2>
+<p>Caso ainda haja dúvidas sobre o ganho de desempenho, criei duas APIs usando o framework Express, as quais estão sendo executadas em containers Docker. Para analisar o consumo de memória, CPU e tempo de resposta, utilizei uma combinação de ferramentas como K6, tshield, Prometheus e Grafana.</p>
+<p>Dessa forma, será possível observar visualmente a diferença de consumo de memória, utilização da CPU e tempo de resposta entre as duas abordagens, demonstrando de forma clara o ganho real de desempenho obtido ao utilizar o <strong><code>Promise.all</code></strong>.</p>
+<h3 id="ferramentas">Ferramentas</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/promise-all-01.png"
+        data-srcset="/images/promise-all-01.png, /images/promise-all-01.png 1.5x, /images/promise-all-01.png 2x"
+        data-sizes="auto"
+        alt="/images/promise-all-01.png"
+        title="Ferramentas em execução" /></p>
+<h3 id="tempo-de-resposta">Tempo de Resposta</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/promise-all-02.png"
+        data-srcset="/images/promise-all-02.png, /images/promise-all-02.png 1.5x, /images/promise-all-02.png 2x"
+        data-sizes="auto"
+        alt="/images/promise-all-02.png"
+        title="Tempo de Resposta" /></p>
+<h3 id="uso-de-cpu">Uso de CPU</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/promise-all-03.png"
+        data-srcset="/images/promise-all-03.png, /images/promise-all-03.png 1.5x, /images/promise-all-03.png 2x"
+        data-sizes="auto"
+        alt="/images/promise-all-03.png"
+        title="Use de CPU" /></p>
+<h3 id="uso-de-memoria">Uso de Memoria</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/promise-all-04.png"
+        data-srcset="/images/promise-all-04.png, /images/promise-all-04.png 1.5x, /images/promise-all-04.png 2x"
+        data-sizes="auto"
+        alt="/images/promise-all-04.png"
+        title="Uso de Memoria" /></p>
+<h2 id="github-links">Github Links</h2>
+<p><a href="https://github.com/Einsteinish/Docker-Compose-Prometheus-and-Grafana" target="_blank" rel="noopener noreffer">Docker com prometheus e grafana</a></p>
+<p><a href="https://github.com/diegorubin/tshield" target="_blank" rel="noopener noreffer">Tshield</a></p>
+<p><a href="https://github.com/victorleandroof/article-promise-all" target="_blank" rel="noopener noreffer">Projeto</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 18/06/2023</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandro.com.br/posts/promise_all_nodejs/" data-title="Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido" data-via="https://twitter.com/victorleandroof" data-hashtags="nodejs,promises,perfomance,boas_praticas_nodejs,promise.all"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/nodejs/">nodejs</a>,&nbsp;<a href="/tags/promises/">promises</a>,&nbsp;<a href="/tags/perfomance/">perfomance</a>,&nbsp;<a href="/tags/boas_praticas_nodejs/">boas_praticas_nodejs</a>,&nbsp;<a href="/tags/promise.all/">promise.all</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/benford_law/" class="prev" rel="prev" title="A beleza dos padrões numéricos"><i class="fas fa-angle-left fa-fw"></i>A beleza dos padrões numéricos</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,236 +1,77 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on Victor Leandro</title>
-    <link>https://victorleandro.com.br/tags/</link>
-    <description>Recent content in Tags on Victor Leandro</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>pt-br</language>
-    <lastBuildDate>Sun, 18 Jun 2023 14:01:34 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>boas_praticas_nodejs</title>
-      <link>https://victorleandro.com.br/tags/boas_praticas_nodejs/</link>
-      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/boas_praticas_nodejs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>nodejs</title>
-      <link>https://victorleandro.com.br/tags/nodejs/</link>
-      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/nodejs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>perfomance</title>
-      <link>https://victorleandro.com.br/tags/perfomance/</link>
-      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/perfomance/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>promise.all</title>
-      <link>https://victorleandro.com.br/tags/promise.all/</link>
-      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/promise.all/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>promises</title>
-      <link>https://victorleandro.com.br/tags/promises/</link>
-      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/promises/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>benford</title>
-      <link>https://victorleandro.com.br/tags/benford/</link>
-      <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/benford/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>lei_benford</title>
-      <link>https://victorleandro.com.br/tags/lei_benford/</link>
-      <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/lei_benford/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>matemática</title>
-      <link>https://victorleandro.com.br/tags/matem%C3%A1tica/</link>
-      <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/matem%C3%A1tica/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>numéricos</title>
-      <link>https://victorleandro.com.br/tags/num%C3%A9ricos/</link>
-      <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/num%C3%A9ricos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>padrões</title>
-      <link>https://victorleandro.com.br/tags/padr%C3%B5es/</link>
-      <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/padr%C3%B5es/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>amiunique</title>
-      <link>https://victorleandro.com.br/tags/amiunique/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/amiunique/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cookie</title>
-      <link>https://victorleandro.com.br/tags/cookie/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/cookie/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fingerprint</title>
-      <link>https://victorleandro.com.br/tags/fingerprint/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/fingerprint/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>navegador</title>
-      <link>https://victorleandro.com.br/tags/navegador/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/navegador/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>navegg</title>
-      <link>https://victorleandro.com.br/tags/navegg/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/navegg/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>privacidade</title>
-      <link>https://victorleandro.com.br/tags/privacidade/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/privacidade/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rastreamento</title>
-      <link>https://victorleandro.com.br/tags/rastreamento/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/rastreamento/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>segurança</title>
-      <link>https://victorleandro.com.br/tags/seguran%C3%A7a/</link>
-      <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/seguran%C3%A7a/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cassandra</title>
-      <link>https://victorleandro.com.br/tags/cassandra/</link>
-      <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/cassandra/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mongodb</title>
-      <link>https://victorleandro.com.br/tags/mongodb/</link>
-      <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/mongodb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>nosql</title>
-      <link>https://victorleandro.com.br/tags/nosql/</link>
-      <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/nosql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bass</title>
-      <link>https://victorleandro.com.br/tags/bass/</link>
-      <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/bass/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>containers</title>
-      <link>https://victorleandro.com.br/tags/containers/</link>
-      <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/containers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>faas</title>
-      <link>https://victorleandro.com.br/tags/faas/</link>
-      <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/faas/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>serverless</title>
-      <link>https://victorleandro.com.br/tags/serverless/</link>
-      <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
-      
-      <guid>https://victorleandro.com.br/tags/serverless/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - Victor Leandro</title>
+        <link>https://victorleandro.com.br/tags/</link>
+        <description>Tags - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 18 Jun 2023 14:01:34 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>boas_praticas_nodejs</title>
+    <link>https://victorleandro.com.br/tags/boas_praticas_nodejs/</link>
+    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/boas_praticas_nodejs/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>nodejs</title>
+    <link>https://victorleandro.com.br/tags/nodejs/</link>
+    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/nodejs/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>perfomance</title>
+    <link>https://victorleandro.com.br/tags/perfomance/</link>
+    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/perfomance/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>promise.all</title>
+    <link>https://victorleandro.com.br/tags/promise.all/</link>
+    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/promise.all/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>promises</title>
+    <link>https://victorleandro.com.br/tags/promises/</link>
+    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/promises/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>benford</title>
+    <link>https://victorleandro.com.br/tags/benford/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/benford/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>lei_benford</title>
+    <link>https://victorleandro.com.br/tags/lei_benford/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/lei_benford/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>matemática</title>
+    <link>https://victorleandro.com.br/tags/matem%C3%A1tica/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/matem%C3%A1tica/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>numéricos</title>
+    <link>https://victorleandro.com.br/tags/num%C3%A9ricos/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/num%C3%A9ricos/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>padrões</title>
+    <link>https://victorleandro.com.br/tags/padr%C3%B5es/</link>
+    <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/tags/padr%C3%B5es/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
 </rss>
