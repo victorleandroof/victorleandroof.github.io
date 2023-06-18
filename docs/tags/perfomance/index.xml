@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>perfomance on Victor Leandro</title>
+    <link>https://victorleandro.com.br/tags/perfomance/</link>
+    <description>Recent content in perfomance on Victor Leandro</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Sun, 18 Jun 2023 14:01:34 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/perfomance/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido</title>
+      <link>https://victorleandro.com.br/posts/promise_all_nodejs/</link>
+      <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
+      
+      <guid>https://victorleandro.com.br/posts/promise_all_nodejs/</guid>
+      <description>Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!
+O que é Promises ?</description>
+    </item>
+    
+  </channel>
+</rss>

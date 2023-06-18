@@ -1,6 +1,6 @@
 ---
 title: "Desvendando o 'Promise.all': Faça Seu Código Node.js Voar Alto e Rápido"
-date: 2023-06-18T13:30:12-03:00
+date: 2023-06-18T14:01:34-03:00
 draft: false
 tags: [nodejs, promises, perfomance, boas_praticas_nodejs, promise.all]
 featuredImage: "/images/nodejs_promises.png"
@@ -55,3 +55,5 @@ Dessa forma, será possível observar visualmente a diferença de consumo de mem
 [Tshield](https://github.com/diegorubin/tshield)
 
 [Projeto](https://github.com/victorleandroof/article-promise-all)
+
+
