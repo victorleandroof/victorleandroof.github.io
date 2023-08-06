@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Quarkus vs. Spring Boot: A Batalha dos Frameworks Java  - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Quarkus vs. Spring Boot: A Batalha dos Frameworks Java " />
+<meta property="og:description" content="Se você é um desenvolvedor Java em busca do framework perfeito para dar vida ao seu projeto, este artigo é feito sob medida para você! Neste guia, exploraremos as principais diferenças entre Quarkus e Spring Boot, os dois gigantes do desenvolvimento Java, mostrarei insights valiosos para ajudá-lo a tomar a decisão mais acertada.
+O que é Spring Boot ? O Spring Boot é uma ferramenta que simplifica o desenvolvimento de aplicativos Java, fornecendo uma configuração automática baseada em convenções." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandro.com.br/posts/springboot_vs_quarkus/" /><meta property="og:image" content="https://victorleandro.com.br/images/springboot_vs_quarkus/capa.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-06T13:47:07-03:00" />
+<meta property="article:modified_time" content="2023-08-06T13:47:07-03:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandro.com.br/images/springboot_vs_quarkus/capa.png"/>
+
+<meta name="twitter:title" content="Quarkus vs. Spring Boot: A Batalha dos Frameworks Java "/>
+<meta name="twitter:description" content="Se você é um desenvolvedor Java em busca do framework perfeito para dar vida ao seu projeto, este artigo é feito sob medida para você! Neste guia, exploraremos as principais diferenças entre Quarkus e Spring Boot, os dois gigantes do desenvolvimento Java, mostrarei insights valiosos para ajudá-lo a tomar a decisão mais acertada.
+O que é Spring Boot ? O Spring Boot é uma ferramenta que simplifica o desenvolvimento de aplicativos Java, fornecendo uma configuração automática baseada em convenções."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandro.com.br/posts/springboot_vs_quarkus/" /><link rel="prev" href="https://victorleandro.com.br/posts/promise_all_nodejs/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Quarkus vs. Spring Boot: A Batalha dos Frameworks Java ",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandro.com.br\/posts\/springboot_vs_quarkus\/"
+        },"image": ["https:\/\/victorleandro.com.br\/images\/springboot_vs_quarkus\/capa.png"],"genre": "posts","keywords": "quarkus, springboot, java, frameworks","wordcount":  869 ,
+        "url": "https:\/\/victorleandro.com.br\/posts\/springboot_vs_quarkus\/","datePublished": "2023-08-06T13:47:07-03:00","dateModified": "2023-08-06T13:47:07-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Quarkus vs. Spring Boot: A Batalha dos Frameworks Java </h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="06/08/2023">06/08/2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;869 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;5 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/springboot_vs_quarkus/capa.png"
+        data-srcset="/images/springboot_vs_quarkus/capa.png, /images/springboot_vs_quarkus/capa.png 1.5x, /images/springboot_vs_quarkus/capa.png 2x"
+        data-sizes="auto"
+        alt="/images/springboot_vs_quarkus/capa.png"
+        title="/images/springboot_vs_quarkus/capa.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#o-que-é-spring-boot-">O que é Spring Boot ?</a>
+      <ul>
+        <li><a href="#pontos-positivos">Pontos Positivos:</a></li>
+        <li><a href="#pontos-negativos">Pontos Negativos:</a></li>
+      </ul>
+    </li>
+    <li><a href="#o-que-é-quarkus-">O que é Quarkus ?</a>
+      <ul>
+        <li><a href="#pontos-positivos-1">Pontos Positivos:</a></li>
+        <li><a href="#pontos-negativos-1">Pontos Negativos:</a></li>
+      </ul>
+    </li>
+    <li><a href="#comparação">Comparação</a>
+      <ul>
+        <li><a href="#ferramentas">Ferramentas</a></li>
+        <li><a href="#tempo-de-resposta">Tempo de Resposta</a></li>
+        <li><a href="#uso-de-cpu">Uso de CPU</a></li>
+        <li><a href="#uso-de-memoria">Uso de Memoria</a></li>
+      </ul>
+    </li>
+    <li><a href="#github-links">Github Links</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Se você é um desenvolvedor Java em busca do framework perfeito para dar vida ao seu projeto, este artigo é feito sob medida para você! Neste guia, exploraremos as principais diferenças entre Quarkus e Spring Boot, os dois gigantes do desenvolvimento Java, mostrarei insights valiosos para ajudá-lo a tomar a decisão mais acertada.</p>
+<h2 id="o-que-é-spring-boot-">O que é Spring Boot ?</h2>
+<p>O Spring Boot é uma ferramenta que simplifica o desenvolvimento de aplicativos Java, fornecendo uma configuração automática baseada em convenções. Ele reduz a quantidade de código de configuração manual, permitindo que os desenvolvedores se concentrem mais na lógica de negócios. Através do ecossistema Spring, o Spring Boot oferece recursos poderosos para criar aplicações corporativas de forma eficiente.</p>
+<h3 id="pontos-positivos">Pontos Positivos:</h3>
+<ol>
+<li>Facilidade de Configuração: O Spring Boot facilita a configuração ao adotar uma abordagem de convenção sobre configuração. Isso significa que muitas configurações são definidas automaticamente com base nas dependências utilizadas, simplificando o processo de configuração e acelerando o desenvolvimento.</li>
+<li>Integrações Prontas: O Spring Boot oferece uma ampla variedade de integrações prontas para uso. Isso possibilita que os desenvolvedores adicionem facilmente funcionalidades específicas às suas aplicações, como acesso a bancos de dados, autenticação, segurança e muito mais.</li>
+<li>Ecossistema Spring: O Spring Boot é construído sobre o ecossistema Spring, famoso e consolidado no desenvolvimento Java. Isso proporciona aos desenvolvedores uma vasta gama de recursos, documentação e uma comunidade ativa para suporte.</li>
+<li>Agilidade no Desenvolvimento: Com o Spring Boot, o desenvolvimento se torna mais ágil. Com recursos prontos para uso e menos configuração manual, os desenvolvedores podem se concentrar na lógica de negócio, aumentando a produtividade.</li>
+</ol>
+<h3 id="pontos-negativos">Pontos Negativos:</h3>
+<ol>
+<li>Curva de Aprendizado: A curva de aprendizado do Spring Boot pode ser desafiadora para desenvolvedores iniciantes, pois é necessário ter familiaridade com o ecossistema Spring e seus conceitos relacionados. No entanto, o Spring Boot facilita muitas tarefas e oferece um grande potencial uma vez que se domina esses conhecimentos.</li>
+<li>Overhead de Dependências: O Spring Boot, sendo uma ferramenta abrangente e flexível, pode apresentar overhead devido às múltiplas dependências incluídas. Isso pode afetar o tamanho da aplicação e o tempo de inicialização, dependendo do projeto.</li>
+<li>Flexibilidade Limitada: Em certas ocasiões, a abordagem pré-configurada do Spring Boot pode restringir a flexibilidade de configuração. Caso o projeto possua requisitos muito específicos, pode ser necessário contornar as convenções do Spring Boot.</li>
+<li>Necessidade de Atualizações: O ecossistema Spring é atualizado regularmente para manter sua relevância e segurança. Portanto, os desenvolvedores devem estar preparados para acompanhar as atualizações do framework e suas dependências, a fim de garantir a estabilidade e segurança do projeto.</li>
+</ol>
+<h2 id="o-que-é-quarkus-">O que é Quarkus ?</h2>
+<p>O Quarkus é uma estrutura que segue uma abordagem semelhante ao Spring Boot, mas se destaca por oferecer artefatos menores e um tempo de inicialização extremamente rápido, além de ser eficiente em termos de recursos. É otimizado para ambientes em nuvem, serverless e em containers, proporcionando agilidade e desempenho no desenvolvimento Java. Além disso, integra-se perfeitamente com os frameworks Java mais populares, tornando a experiência de desenvolvimento suave e familiar para os desenvolvedores. Sua versatilidade é uma escolha atraente para projetos de todos os tamanhos, desde pequenas aplicações até sistemas corporativos complexos.</p>
+<h3 id="pontos-positivos-1">Pontos Positivos:</h3>
+<ol>
+<li>Tempo de inicialização rápido: O Quarkus proporciona uma inicialização extremamente rápida, ideal para aplicações em nuvem e microsserviços, permitindo escalabilidade eficiente.</li>
+<li>Eficiência de recursos: O Quarkus, com sua abordagem otimizada, consome menos recursos em comparação com outros frameworks, resultando em menor uso de memória e tempos de resposta mais ágeis.</li>
+<li>Tamanho reduzido de artefatos: O Quarkus produz artefatos menores, tornando as aplicações mais leves e facilitando a implantação e distribuição.</li>
+<li>Suporte a nativo: O Quarkus oferece suporte à compilação nativa, permitindo a criação de binários nativos que reduzem o tempo de inicialização e o tamanho dos artefatos de forma significativa.</li>
+<li>Integração com o ecossistema Java: O Quarkus é compatível com os frameworks e bibliotecas Java mais populares, o que facilita a integração com as ferramentas e tecnologias já utilizadas pelos desenvolvedores.</li>
+</ol>
+<h3 id="pontos-negativos-1">Pontos Negativos:</h3>
+<ol>
+<li>Curva de aprendizado: O Quarkus, como uma tecnologia nova, pode demandar algum tempo para se familiarizar com seus conceitos e características únicas.</li>
+<li>Limitações em projetos complexos: Em projetos altamente complexos ou com requisitos muito específicos, o Quarkus pode apresentar algumas limitações em comparação a frameworks mais consolidados e experientes.</li>
+<li>Compatibilidade com algumas bibliotecas: O Quarkus é compatível com a maioria das bibliotecas Java, porém algumas podem não ser totalmente suportadas, requerendo ajustes ou adaptações.</li>
+<li>Ciclo de vida do ecossistema: O ecossistema do Quarkus, uma tecnologia emergente, está em constante evolução, o que pode causar mudanças frequentes que impactam a estabilidade das aplicações.</li>
+<li>Documentação em desenvolvimento: A documentação do Quarkus está em constante evolução, porém, em alguns casos, pode faltar recursos detalhados para lidar com cenários complexos ou específicos.</li>
+</ol>
+<h2 id="comparação">Comparação</h2>
+<p>Criei duas APIs usando o framework Spring e Quarkus, as quais estão sendo executadas em containers Docker. Para analisar o consumo de memória, CPU e tempo de resposta, utilizei uma combinação de ferramentas como K6, Prometheus e Grafana.</p>
+<p>Dessa forma, será possível observar visualmente a diferença de consumo de memória, utilização da CPU e tempo de resposta entre as duas abordagens, demonstrando de forma clara o ganho real de desempenho.</p>
+<h3 id="ferramentas">Ferramentas</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/springboot_vs_quarkus/ferramentas.png"
+        data-srcset="/images/springboot_vs_quarkus/ferramentas.png, /images/springboot_vs_quarkus/ferramentas.png 1.5x, /images/springboot_vs_quarkus/ferramentas.png 2x"
+        data-sizes="auto"
+        alt="/images/springboot_vs_quarkus/ferramentas.png"
+        title="Ferramentas" /></p>
+<h3 id="tempo-de-resposta">Tempo de Resposta</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/springboot_vs_quarkus/tempo-resposta.png"
+        data-srcset="/images/springboot_vs_quarkus/tempo-resposta.png, /images/springboot_vs_quarkus/tempo-resposta.png 1.5x, /images/springboot_vs_quarkus/tempo-resposta.png 2x"
+        data-sizes="auto"
+        alt="/images/springboot_vs_quarkus/tempo-resposta.png"
+        title="Tempo de Resposta" /></p>
+<h3 id="uso-de-cpu">Uso de CPU</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/springboot_vs_quarkus/uso-de-cpu.png"
+        data-srcset="/images/springboot_vs_quarkus/uso-de-cpu.png, /images/springboot_vs_quarkus/uso-de-cpu.png 1.5x, /images/springboot_vs_quarkus/uso-de-cpu.png 2x"
+        data-sizes="auto"
+        alt="/images/springboot_vs_quarkus/uso-de-cpu.png"
+        title="Uso de CPU" /></p>
+<h3 id="uso-de-memoria">Uso de Memoria</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/springboot_vs_quarkus/uso-de-memoria.png"
+        data-srcset="/images/springboot_vs_quarkus/uso-de-memoria.png, /images/springboot_vs_quarkus/uso-de-memoria.png 1.5x, /images/springboot_vs_quarkus/uso-de-memoria.png 2x"
+        data-sizes="auto"
+        alt="/images/springboot_vs_quarkus/uso-de-memoria.png"
+        title="Uso de Memoria" /></p>
+<h2 id="github-links">Github Links</h2>
+<p><a href="https://github.com/Einsteinish/Docker-Compose-Prometheus-and-Grafana" target="_blank" rel="noopener noreffer">Docker com prometheus e grafana</a></p>
+<p><a href="https://github.com/victorleandroof/article-spring-vs-quarkus" target="_blank" rel="noopener noreffer">Projeto</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 06/08/2023</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandro.com.br/posts/springboot_vs_quarkus/" data-title="Quarkus vs. Spring Boot: A Batalha dos Frameworks Java " data-via="https://twitter.com/victorleandroof" data-hashtags="quarkus,springboot,java,frameworks"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/quarkus/">quarkus</a>,&nbsp;<a href="/tags/springboot/">springboot</a>,&nbsp;<a href="/tags/java/">java</a>,&nbsp;<a href="/tags/frameworks/">frameworks</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/promise_all_nodejs/" class="prev" rel="prev" title="Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido"><i class="fas fa-angle-left fa-fw"></i>Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

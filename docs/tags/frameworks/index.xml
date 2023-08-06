@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>frameworks - Tag - Victor Leandro</title>
+        <link>https://victorleandro.com.br/tags/frameworks/</link>
+        <description>frameworks - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 06 Aug 2023 13:47:07 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/frameworks/" rel="self" type="application/rss+xml" /><item>
+    <title>Quarkus vs. Spring Boot: A Batalha dos Frameworks Java </title>
+    <link>https://victorleandro.com.br/posts/springboot_vs_quarkus/</link>
+    <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandro.com.br/posts/springboot_vs_quarkus/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/springboot_vs_quarkus/capa.png" referrerpolicy="no-referrer">
+            </div>Se você é um desenvolvedor Java em busca do framework perfeito para dar vida ao seu projeto, este artigo é feito sob medida para você! Neste guia, exploraremos as principais diferenças entre Quarkus e Spring Boot, os dois gigantes do desenvolvimento Java, mostrarei insights valiosos para ajudá-lo a tomar a decisão mais acertada.
+O que é Spring Boot ? O Spring Boot é uma ferramenta que simplifica o desenvolvimento de aplicativos Java, fornecendo uma configuração automática baseada em convenções.]]></description>
+</item></channel>
+</rss>

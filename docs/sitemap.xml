@@ -2,15 +2,20 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://victorleandro.com.br/tags/boas_praticas_nodejs/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/posts/promise_all_nodejs/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/tags/nodejs/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/tags/perfomance/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/posts/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/tags/promise.all/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/tags/promises/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/tags/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandro.com.br/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/frameworks/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/java/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/posts/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/quarkus/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/posts/springboot_vs_quarkus/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/springboot/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/</loc><lastmod>2023-08-06T13:47:07-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/boas_praticas_nodejs/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://victorleandro.com.br/posts/promise_all_nodejs/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/nodejs/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/perfomance/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/promise.all/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://victorleandro.com.br/tags/promises/</loc><lastmod>2023-06-18T14:01:34-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://victorleandro.com.br/posts/benford_law/</loc><lastmod>2021-10-12T08:40:12-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://victorleandro.com.br/tags/benford/</loc><lastmod>2021-10-12T08:40:12-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://victorleandro.com.br/tags/lei_benford/</loc><lastmod>2021-10-12T08:40:12-03:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
