@@ -1,4 +1,4 @@
-baseURL = 'https://victorleandroof.github.io/blog/'
+baseURL = 'https://victorleandroof.github.io/'
 publishDir="docs"
 # [en, zh-cn, fr, ...] determines default content language
 defaultContentLanguage = "pt-br"
