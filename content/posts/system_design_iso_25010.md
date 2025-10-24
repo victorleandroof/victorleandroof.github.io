@@ -1,5 +1,5 @@
 ---
-title: "System_desing_iso_25010"
+title: "System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010"
 date: 2025-10-24T17:00:33-03:00
 tags: [System Desing, ISO 25010, Arquitetura]
 featuredImage: "/images/system_design_iso_25010.png"
@@ -9,8 +9,6 @@ seo:
     images: [/images/system_design_iso_25010.png]
 draft: false
 ---
-
-# System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010
 
 Como arquiteto, a elaboração e decisões arquiteturais precisa de uma abordagem que combine análise de dados, considerações de custo, frameworks e padrões fortemente estabelecidos. Este artigo apresenta uma metodologia integrada para system design interviews que utiliza dados como fundamento para decisões, incorpora análise de custos desde o início do processo e aplica o padrão ISO 25010 para garantir qualidade.
 
