@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010 - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010" />
+<meta property="og:description" content="Como arquiteto, a elaboração e decisões arquiteturais precisa de uma abordagem que combine análise de dados, considerações de custo, frameworks e padrões fortemente estabelecidos. Este artigo apresenta uma metodologia integrada para system design interviews que utiliza dados como fundamento para decisões, incorpora análise de custos desde o início do processo e aplica o padrão ISO 25010 para garantir qualidade.
+A Nova Era das Decisões Arquiteturais Grande entidades não podem basear as suas decisões arquiteturais em intuição, gosto pessoais ou sorte." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandroof.github.io/posts/system_design_iso_25010/" /><meta property="og:image" content="https://victorleandroof.github.io/images/system_design_iso_25010.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-10-24T17:00:33-03:00" />
+<meta property="article:modified_time" content="2025-10-24T17:00:33-03:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandroof.github.io/images/system_design_iso_25010.png"/>
+
+<meta name="twitter:title" content="System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010"/>
+<meta name="twitter:description" content="Como arquiteto, a elaboração e decisões arquiteturais precisa de uma abordagem que combine análise de dados, considerações de custo, frameworks e padrões fortemente estabelecidos. Este artigo apresenta uma metodologia integrada para system design interviews que utiliza dados como fundamento para decisões, incorpora análise de custos desde o início do processo e aplica o padrão ISO 25010 para garantir qualidade.
+A Nova Era das Decisões Arquiteturais Grande entidades não podem basear as suas decisões arquiteturais em intuição, gosto pessoais ou sorte."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandroof.github.io/posts/system_design_iso_25010/" /><link rel="prev" href="https://victorleandroof.github.io/posts/springboot_vs_quarkus/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandroof.github.io\/posts\/system_design_iso_25010\/"
+        },"image": ["https:\/\/victorleandroof.github.io\/images\/system_design_iso_25010.png"],"genre": "posts","keywords": "System Desing, ISO 25010, Arquitetura","wordcount":  1100 ,
+        "url": "https:\/\/victorleandroof.github.io\/posts\/system_design_iso_25010\/","datePublished": "2025-10-24T17:00:33-03:00","dateModified": "2025-10-24T17:00:33-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="24/10/2025">24/10/2025</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1100 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;6 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/system_design_iso_25010.png"
+        data-srcset="/images/system_design_iso_25010.png, /images/system_design_iso_25010.png 1.5x, /images/system_design_iso_25010.png 2x"
+        data-sizes="auto"
+        alt="/images/system_design_iso_25010.png"
+        title="/images/system_design_iso_25010.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#a-nova-era-das-decisões-arquiteturais">A Nova Era das Decisões Arquiteturais</a></li>
+    <li><a href="#iso-25010-norma-institucional-de-qualidade">ISO 25010: Norma Institucional de Qualidade</a></li>
+    <li><a href="#fator-de-preço-nas-decisões-arquiteturais">Fator de Preço nas Decisões Arquiteturais</a>
+      <ul>
+        <li><a href="#risk-and-cost-driven-architecture-rcda">Risk and Cost Driven Architecture (RCDA)</a></li>
+      </ul>
+    </li>
+    <li><a href="#colocando-em-pratica-sistema-de-e-commerce-escalável">Colocando em Pratica: Sistema de E-commerce Escalável</a></li>
+    <li><a href="#análise-de-requisitos-com-iso-25010">Análise de Requisitos com ISO 25010</a></li>
+    <li><a href="#arquitetura-de-microserviços">Arquitetura de Microserviços</a></li>
+    <li><a href="#estratégia-de-dados-híbrida">Estratégia de Dados Híbrida</a></li>
+    <li><a href="#implementação-de-monitoramento-data-driven">Implementação de Monitoramento Data-Driven</a></li>
+    <li><a href="#decisões-arquiteturais-baseadas-em-dados">Decisões Arquiteturais Baseadas em Dados</a></li>
+    <li><a href="#sharding-strategy">Sharding Strategy</a></li>
+    <li><a href="#cache-strategy">Cache Strategy</a></li>
+    <li><a href="#resultados-mensuráveis-iso-25010">Resultados Mensuráveis (ISO 25010)</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#manutenibilidade">Manutenibilidade</a></li>
+    <li><a href="#confiabilidade">Confiabilidade</a></li>
+    <li><a href="#estratégias-de-otimização-contínua">Estratégias de Otimização Contínua</a></li>
+    <li><a href="#feedback-loop-automatizado">Feedback Loop Automatizado</a></li>
+    <li><a href="#auto-scaling-inteligente">Auto-Scaling Inteligente</a></li>
+    <li><a href="#framework-de-entrevista-aplicação-prática">Framework de Entrevista: Aplicação Prática</a></li>
+    <li><a href="#estrutura-sugerida">Estrutura Sugerida</a></li>
+    <li><a href="#conclusão">Conclusão</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Como arquiteto, a elaboração e decisões arquiteturais precisa de uma abordagem que combine análise de dados, considerações de custo, frameworks e padrões fortemente estabelecidos. Este artigo apresenta uma metodologia integrada para system design interviews que utiliza dados como fundamento para decisões, incorpora análise de custos desde o início do processo e aplica o padrão ISO 25010 para garantir qualidade.</p>
+<h2 id="a-nova-era-das-decisões-arquiteturais">A Nova Era das Decisões Arquiteturais</h2>
+<p>Grande entidades não podem basear as suas decisões arquiteturais em intuição, gosto pessoais ou sorte. O paradigma atual exige uma abordagem <strong>data-driven</strong> que utiliza métricas quantificáveis, análises de performance e uma norma institucional de qualidade como o ISO 25010.</p>
+<p>Extremamente necessário trata os dados como <strong>coração</strong> no processo de tomada de decisão. Isso significa que cada decisão arquitetural deve ser baseada em métricas concretas, análises de performance histórica e projeções baseadas em dados reais.</p>
+<p>Os princípios fundamentais incluem:</p>
+<ol>
+<li><strong>Decisões baseadas em métricas</strong>: Toda decisão arquitetural suportada por dados concretos</li>
+<li><strong>Processamento em tempo real</strong>: Capacidade de adaptar a arquitetura baseada em feedback imediato</li>
+<li><strong>Integração de AI/ML</strong>: Componentes de machine learning para insights mais profundos</li>
+<li><strong>Abordagem orientada a eventos</strong>: Comunicação entre componentes através de eventos</li>
+</ol>
+<h2 id="iso-25010-norma-institucional-de-qualidade">ISO 25010: Norma Institucional de Qualidade</h2>
+<p>O ISO 25010 define oito pilares principais de qualidade:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Característica</strong></th>
+<th><strong>Descrição</strong></th>
+<th><strong>Aplicação em System Design</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Adequação Funcional</strong></td>
+<td>Atendimento aos requisitos funcionais</td>
+<td>Validação de features e casos de uso</td>
+</tr>
+<tr>
+<td><strong>Confiabilidade</strong></td>
+<td>Manutenção do nível de performance</td>
+<td>Estratégias de fault tolerance</td>
+</tr>
+<tr>
+<td><strong>Usabilidade</strong></td>
+<td>Facilidade de uso e aprendizado</td>
+<td>Design de APIs e interfaces</td>
+</tr>
+<tr>
+<td><strong>Eficiência de Performance</strong></td>
+<td>Otimização de recursos</td>
+<td>Decisões de scaling e caching</td>
+</tr>
+<tr>
+<td><strong>Manutenibilidade</strong></td>
+<td>Facilidade de modificação</td>
+<td>Arquitetura de microserviços</td>
+</tr>
+<tr>
+<td><strong>Portabilidade</strong></td>
+<td>Transferência entre ambientes</td>
+<td>Estratégias de containerização</td>
+</tr>
+<tr>
+<td><strong>Compatibilidade</strong></td>
+<td>Interoperabilidade com outros sistemas</td>
+<td>Design de APIs e protocolos</td>
+</tr>
+<tr>
+<td><strong>Segurança</strong></td>
+<td>Proteção contra acessos não autorizados</td>
+<td>Implementação de autenticação/autorização</td>
+</tr>
+</tbody>
+</table>
+<p>Durante uma entrevista de system design, devemos utilizar esses pilares estruturado para avaliar e justificar decisões , garantindo que todos os aspectos de qualidade sejam considerados.</p>
+<h2 id="fator-de-preço-nas-decisões-arquiteturais">Fator de Preço nas Decisões Arquiteturais</h2>
+<h3 id="risk-and-cost-driven-architecture-rcda">Risk and Cost Driven Architecture (RCDA)</h3>
+<p>Não podemos esquecer preço ha ser pago por essa arquitetura, ou seja, importante para não esquecer e a abordagem RCDA define que a significância arquitetural de uma preocupação pode ser representada pela fórmula:</p>
+<p><strong>AS(C) = Cost(C) + Risk(C)</strong></p>
+<p>Onde:</p>
+<ul>
+<li><strong>AS(C)</strong> = Significância Arquitetural da preocupação C</li>
+<li><strong>Cost(C)</strong> = Custo estimado para endereçar a preocupação</li>
+<li><strong>Risk(C)</strong> = Custo total esperado de &ldquo;problemas potenciais&rdquo;</li>
+</ul>
+<h2 id="colocando-em-pratica-sistema-de-e-commerce-escalável">Colocando em Pratica: Sistema de E-commerce Escalável</h2>
+<p>Para ajudar compreender os tópicos desse artigo iriamos colocar em pratica um sistema de e-commerce :</p>
+<p><strong>Requisitos:</strong></p>
+<ul>
+<li>1M+ usuários durante picos</li>
+<li>10M+ produtos no catálogo</li>
+<li>99.9% de disponibilidade</li>
+<li>Processamento de 50K pedidos/hora</li>
+</ul>
+<h2 id="análise-de-requisitos-com-iso-25010">Análise de Requisitos com ISO 25010</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Característica ISO 25010</strong></th>
+<th><strong>Requisito Específico</strong></th>
+<th><strong>Métrica Objetivo</strong></th>
+<th><strong>Impacto no Custo</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Latência de resposta</td>
+<td>&lt; 200ms (p95)</td>
+<td>Cache: $120/mês</td>
+</tr>
+<tr>
+<td><strong>Confiabilidade</strong></td>
+<td>Disponibilidade</td>
+<td>99.9% uptime</td>
+<td>Multi-AZ: +40% custo</td>
+</tr>
+<tr>
+<td><strong>Escalabilidade</strong></td>
+<td>Usuários concorrentes</td>
+<td>1M+ usuários</td>
+<td>Auto-scaling: $650/mês</td>
+</tr>
+<tr>
+<td><strong>Segurança</strong></td>
+<td>Proteção de dados</td>
+<td>Compliance LGPD</td>
+<td>WAF + encrypt: $80/mês</td>
+</tr>
+<tr>
+<td><strong>Manutenibilidade</strong></td>
+<td>Deploy time</td>
+<td>&lt; 30min deploy</td>
+<td>CI/CD: $100/mês</td>
+</tr>
+</tbody>
+</table>
+<h2 id="arquitetura-de-microserviços">Arquitetura de Microserviços</h2>
+<p><strong>Decisão Data-Driven para Microserviços</strong>:</p>
+<p>Com base em análise de coupling e coesão dos domínios de negócio:</p>
+<ol>
+<li><strong>Product Service</strong>: $150/mês (alta demanda de CPU para buscas)</li>
+<li><strong>User Service</strong>: $80/mês (operações CRUD simples)</li>
+<li><strong>Cart Service</strong>: $120/mês (cache intensivo)</li>
+<li><strong>Payment Service</strong>: $200/mês (alta segurança, redundância)</li>
+<li><strong>Order Service</strong>: $100/mês (processamento assíncrono)</li>
+</ol>
+<p><strong>Total infraestrutura base</strong>: $650/mês</p>
+<h2 id="estratégia-de-dados-híbrida">Estratégia de Dados Híbrida</h2>
+<p><strong>Análise Cost-Benefit por Tipo de Dados</strong>:</p>
+<ol>
+<li><strong>PostgreSQL (RDS Multi-AZ)</strong> - Dados transacionais
+<ul>
+<li>Custo: $180/mês</li>
+<li>Justificativa: ACID compliance, backup automático</li>
+<li>ISO 25010: Alta confiabilidade e integridade</li>
+</ul>
+</li>
+<li><strong>Redis Cluster</strong> - Cache distribuído
+<ul>
+<li>Custo: $120/mês</li>
+<li>Justificativa: Sub-ms latency, reduz 70% load no DB</li>
+<li>ISO 25010: Performance otimizada</li>
+</ul>
+</li>
+<li><strong>DynamoDB</strong> - Sessões de usuário
+<ul>
+<li>Custo: $50/mês (pay-per-use)</li>
+<li>Justificativa: Auto-scaling, global tables</li>
+<li>ISO 25010: Alta disponibilidade</li>
+</ul>
+</li>
+</ol>
+<h2 id="implementação-de-monitoramento-data-driven">Implementação de Monitoramento Data-Driven</h2>
+<p><strong>Métricas de Negócio Coletadas</strong>:</p>
+<ul>
+<li>Taxa de conversão por página de produto</li>
+<li>Valor médio do pedido por categoria</li>
+<li>Tempo médio de sessão por usuário</li>
+<li>Taxa de abandono do carrinho por etapa</li>
+</ul>
+<p><strong>Métricas Técnicas (Alinhadas ao ISO 25010)</strong>:</p>
+<ul>
+<li>Latência por endpoint (p50, p95, p99)</li>
+<li>Utilização de CPU/Memória por serviço</li>
+<li>Taxa de erro por API</li>
+<li>Throughput de transações por segundo</li>
+</ul>
+<h2 id="decisões-arquiteturais-baseadas-em-dados">Decisões Arquiteturais Baseadas em Dados</h2>
+<h2 id="sharding-strategy">Sharding Strategy</h2>
+<p><strong>Análise de Performance vs Custo</strong>:</p>
+<ul>
+<li><strong>Crescimento projetado</strong>: 100TB em 2 anos</li>
+<li><strong>Opção single DB</strong>: $2,400/mês (RDS XL)</li>
+<li><strong>Opção sharded</strong>: $800/mês (3x RDS Medium)</li>
+<li><strong>Decisão</strong>: Sharding por categoria de produto baseado em análise de queries</li>
+</ul>
+<h2 id="cache-strategy">Cache Strategy</h2>
+<p><strong>Dados coletados durante 30 dias</strong>:</p>
+<ul>
+<li>80% das consultas são para os mesmos 20% de produtos</li>
+<li>Cache hit rate atual: 65%</li>
+<li>Custo de cache miss: +150ms latência média</li>
+</ul>
+<p><strong>Implementação</strong>:</p>
+<ul>
+<li>Cache L1 (local): Hot products (TTL 1 min)</li>
+<li>Cache L2 (Redis): Warm products (TTL 5 min)</li>
+<li><strong>ROI calculado</strong>: 40% redução latência, 25% redução custos DB</li>
+</ul>
+<h2 id="resultados-mensuráveis-iso-25010">Resultados Mensuráveis (ISO 25010)</h2>
+<h2 id="performance">Performance</h2>
+<ul>
+<li><strong>Baseline</strong>: Latência p95 = 800ms</li>
+<li><strong>Pós-otimização</strong>: Latência p95 = 180ms</li>
+<li><strong>Impacto financeiro</strong>: 15% aumento conversão = +$50K/mês de revenue</li>
+</ul>
+<h2 id="manutenibilidade">Manutenibilidade</h2>
+<ul>
+<li><strong>Deploy time</strong>: 2h → 15min (-92%)</li>
+<li><strong>MTTR</strong>: 45min → 8min (-82%)</li>
+<li><strong>Developer productivity</strong>: +30% features/sprint</li>
+</ul>
+<h2 id="confiabilidade">Confiabilidade</h2>
+<ul>
+<li><strong>Uptime alcançado</strong>: 99.95% (target: 99.9%)</li>
+<li><strong>Error rate</strong>: 0.01% (target: 0.1%)</li>
+<li><strong>Customer satisfaction</strong>: +25% NPS improvement</li>
+</ul>
+<h2 id="estratégias-de-otimização-contínua">Estratégias de Otimização Contínua</h2>
+<h2 id="feedback-loop-automatizado">Feedback Loop Automatizado</h2>
+<ol>
+<li><strong>Coleta automática</strong> de métricas performance/custo via observabilidade</li>
+<li><strong>Análise semanal</strong> de tendências e detecção de anomalias</li>
+<li><strong>Decisões arquiteturais</strong> baseadas em dados históricos e projeções</li>
+<li><strong>A/B testing</strong> para validação de mudanças antes do rollout</li>
+<li><strong>Refinamento contínuo</strong> dos modelos de ML para previsão</li>
+</ol>
+<h2 id="auto-scaling-inteligente">Auto-Scaling Inteligente</h2>
+<p>Implementação baseada em múltiplas dimensões:</p>
+<ul>
+<li><strong>Métricas de negócio</strong>: Pedidos/minuto, usuários ativos</li>
+<li><strong>Métricas técnicas</strong>: CPU, memória, latência, queue depth</li>
+<li><strong>Projeções de custo</strong>: Budget limits por serviço</li>
+<li><strong>Machine learning</strong>: Predição de picos baseada em histórico e sazonalidade</li>
+</ul>
+<h2 id="framework-de-entrevista-aplicação-prática">Framework de Entrevista: Aplicação Prática</h2>
+<h2 id="estrutura-sugerida">Estrutura Sugerida</h2>
+<ol>
+<li><strong>Clarificação de requisitos</strong> (5 min)
+<ul>
+<li>Aplicar lens do ISO 25010 para requisitos não-funcionais</li>
+<li>Estabelecer constraints de custo e performance</li>
+</ul>
+</li>
+<li><strong>Estimativa de capacidade</strong> (10 min)
+<ul>
+<li>Cálculos data-driven: QPS, storage, bandwidth</li>
+<li>Projeções de crescimento baseadas em dados</li>
+</ul>
+</li>
+<li><strong>Design high-level</strong> (15 min)
+<ul>
+<li>Justificar decisões com análise custo-benefício</li>
+<li>Mapear componentes às características do ISO 25010</li>
+</ul>
+</li>
+<li><strong>Deep dive</strong> (10 min)
+<ul>
+<li>Detalhar componente crítico com métricas</li>
+<li>Apresentar trade-offs com dados concretos</li>
+</ul>
+</li>
+<li><strong>Scaling e otimização</strong> (5 min)
+<ul>
+<li>Estratégias baseadas em monitoring e feedback</li>
+</ul>
+</li>
+</ol>
+<p>Para o componente de cache, escolhemos Redis Cluster porque nossa análise de 30 dias mostra que 80% das queries são para 20% dos produtos. Com TTL de 1 minuto, projetamos 90% hit rate, resultando em latência p95 de 50ms vs 200ms sem cache. O custo de $120/mês se paga com a redução de 60% na carga do banco principal, além de melhorar nossa métrica de Performance do ISO 25010.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/system_design_ex1.png"
+        data-srcset="/images/system_design_ex1.png, /images/system_design_ex1.png 1.5x, /images/system_design_ex1.png 2x"
+        data-sizes="auto"
+        alt="/images/system_design_ex1.png"
+        title="system_design_ex1.png" /></p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Esta abordagem integrada de system design, junto com análise data-driven, consciência de custos e o ISO 25010, representa a evolução das práticas arquiteturais modernas. Ao fundamentar decisões em dados concretos e métricas de qualidade estabelecidas, os arquitetos podem criar sistemas verdadeiramente escaláveis, sustentáveis e alinhados aos objetivos de negócio.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 24/10/2025</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandroof.github.io/posts/system_design_iso_25010/" data-title="System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010" data-via="https://twitter.com/victorleandroof" data-hashtags="System Desing,ISO 25010,Arquitetura"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/system-desing/">System Desing</a>,&nbsp;<a href="/tags/iso-25010/">ISO 25010</a>,&nbsp;<a href="/tags/arquitetura/">Arquitetura</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/springboot_vs_quarkus/" class="prev" rel="prev" title="Quarkus vs. Spring Boot: A Batalha dos Frameworks Java "><i class="fas fa-angle-left fa-fw"></i>Quarkus vs. Spring Boot: A Batalha dos Frameworks Java </a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

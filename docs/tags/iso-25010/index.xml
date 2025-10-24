@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ISO 25010 - Tag - Victor Leandro</title>
+        <link>https://victorleandroof.github.io/tags/iso-25010/</link>
+        <description>ISO 25010 - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Fri, 24 Oct 2025 17:00:33 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/iso-25010/" rel="self" type="application/rss+xml" /><item>
+    <title>System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010</title>
+    <link>https://victorleandroof.github.io/posts/system_design_iso_25010/</link>
+    <pubDate>Fri, 24 Oct 2025 17:00:33 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/posts/system_design_iso_25010/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/system_design_iso_25010.png" referrerpolicy="no-referrer">
+            </div>Como arquiteto, a elaboração e decisões arquiteturais precisa de uma abordagem que combine análise de dados, considerações de custo, frameworks e padrões fortemente estabelecidos. Este artigo apresenta uma metodologia integrada para system design interviews que utiliza dados como fundamento para decisões, incorpora análise de custos desde o início do processo e aplica o padrão ISO 25010 para garantir qualidade.
+A Nova Era das Decisões Arquiteturais Grande entidades não podem basear as suas decisões arquiteturais em intuição, gosto pessoais ou sorte.]]></description>
+</item></channel>
+</rss>

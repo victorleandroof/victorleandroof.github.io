@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>privacidade - Tag - Victor Leandro</title>
-        <link>https://victorleandro.com.br/tags/privacidade/</link>
+        <link>https://victorleandroof.github.io/tags/privacidade/</link>
         <description>privacidade - Tag - Victor Leandro</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:04:57 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/privacidade/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 28 Sep 2021 22:04:57 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/privacidade/" rel="self" type="application/rss+xml" /><item>
     <title>Seu navegador pode ser rastreado ?</title>
-    <link>https://victorleandro.com.br/posts/rastreamento_navegador/</link>
+    <link>https://victorleandroof.github.io/posts/rastreamento_navegador/</link>
     <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/rastreamento_navegador/</guid>
+    <guid>https://victorleandroof.github.io/posts/rastreamento_navegador/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/cookie.jpeg" referrerpolicy="no-referrer">
             </div>Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome.]]></description>

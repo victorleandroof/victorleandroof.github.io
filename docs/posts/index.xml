@@ -1,62 +1,72 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Todos Posts - Victor Leandro</title>
-        <link>https://victorleandro.com.br/posts/</link>
+        <link>https://victorleandroof.github.io/posts/</link>
         <description>Todos Posts | Victor Leandro</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 06 Aug 2023 13:47:07 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Fri, 24 Oct 2025 17:00:33 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010</title>
+    <link>https://victorleandroof.github.io/posts/system_design_iso_25010/</link>
+    <pubDate>Fri, 24 Oct 2025 17:00:33 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/posts/system_design_iso_25010/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/system_design_iso_25010.png" referrerpolicy="no-referrer">
+            </div>Como arquiteto, a elaboração e decisões arquiteturais precisa de uma abordagem que combine análise de dados, considerações de custo, frameworks e padrões fortemente estabelecidos. Este artigo apresenta uma metodologia integrada para system design interviews que utiliza dados como fundamento para decisões, incorpora análise de custos desde o início do processo e aplica o padrão ISO 25010 para garantir qualidade.
+A Nova Era das Decisões Arquiteturais Grande entidades não podem basear as suas decisões arquiteturais em intuição, gosto pessoais ou sorte.]]></description>
+</item><item>
     <title>Quarkus vs. Spring Boot: A Batalha dos Frameworks Java </title>
-    <link>https://victorleandro.com.br/posts/springboot_vs_quarkus/</link>
+    <link>https://victorleandroof.github.io/posts/springboot_vs_quarkus/</link>
     <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/springboot_vs_quarkus/</guid>
+    <guid>https://victorleandroof.github.io/posts/springboot_vs_quarkus/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/springboot_vs_quarkus/capa.png" referrerpolicy="no-referrer">
             </div>Se você é um desenvolvedor Java em busca do framework perfeito para dar vida ao seu projeto, este artigo é feito sob medida para você! Neste guia, exploraremos as principais diferenças entre Quarkus e Spring Boot, os dois gigantes do desenvolvimento Java, mostrarei insights valiosos para ajudá-lo a tomar a decisão mais acertada.
 O que é Spring Boot ? O Spring Boot é uma ferramenta que simplifica o desenvolvimento de aplicativos Java, fornecendo uma configuração automática baseada em convenções.]]></description>
 </item><item>
     <title>Desvendando o &#39;Promise.all&#39;: Faça Seu Código Node.js Voar Alto e Rápido</title>
-    <link>https://victorleandro.com.br/posts/promise_all_nodejs/</link>
+    <link>https://victorleandroof.github.io/posts/promise_all_nodejs/</link>
     <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/promise_all_nodejs/</guid>
+    <guid>https://victorleandroof.github.io/posts/promise_all_nodejs/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/nodejs_promises.png" referrerpolicy="no-referrer">
             </div>Quantas vezes você precisou lidar com múltiplas Promises dentro de um mesmo fluxo, onde nenhuma dependia da outra? E quantas vezes você acabou ignorando ou esquecendo o método estático Promise.all? Neste artigo, vamos explorar a importância dele e garantir que você nunca mais se esqueça de utilizá-lo ou ignorar. Prepare-se para descobrir como esse recurso pode revolucionar a forma como você lida com assincronicidade no seu código Node.js!
 O que é Promises ?]]></description>
 </item><item>
     <title>A beleza dos padrões numéricos</title>
-    <link>https://victorleandro.com.br/posts/benford_law/</link>
+    <link>https://victorleandroof.github.io/posts/benford_law/</link>
     <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/benford_law/</guid>
+    <guid>https://victorleandroof.github.io/posts/benford_law/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/benford_law.jpg" referrerpolicy="no-referrer">
             </div>Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
 A magica da lei de benford Imagine que você tem um monte de números aleatórios, qualquer número entre 1 e 999.999, escolha um número aleatoriamente. Qual é o primeiro digito desse numero se for um ao acaso ele pode ser 2, 4 e 7 ninguém sabe provavelmente a probabilidade é igual, porém não é bem assim, a lei de benford diz que a frequência do numero 1 sempre será de 30,1% , 2 será de 17,6%, 3 será 12,5%, 4 será 9,7%, conforme o exemplo abaixo:]]></description>
 </item><item>
     <title>Seu navegador pode ser rastreado ?</title>
-    <link>https://victorleandro.com.br/posts/rastreamento_navegador/</link>
+    <link>https://victorleandroof.github.io/posts/rastreamento_navegador/</link>
     <pubDate>Tue, 28 Sep 2021 22:04:57 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/rastreamento_navegador/</guid>
+    <guid>https://victorleandroof.github.io/posts/rastreamento_navegador/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/cookie.jpeg" referrerpolicy="no-referrer">
             </div>Excluir cookies ou utilizar navegação anonima garante sua privacidade ? Saber quem esta atrás dos teclados e muito valioso para os donos de sites. Imagina a seguinte situação, você acaba de acessar um e-coomerce (loja virtual) e paginas utilizando alguns mecanismos que reconhece sua idade, seus gostos, disponibilizando produtos e anúncios conforme seu perfil. Um site que faz isso é a Navegg, por ética a empresa somente mapeia seu perfil, nada de informações como e-mail, senha e nome.]]></description>
 </item><item>
     <title>Cassandra vs MongoDB</title>
-    <link>https://victorleandro.com.br/posts/cassandra_mongodb/</link>
+    <link>https://victorleandroof.github.io/posts/cassandra_mongodb/</link>
     <pubDate>Tue, 28 Sep 2021 22:00:18 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/cassandra_mongodb/</guid>
+    <guid>https://victorleandroof.github.io/posts/cassandra_mongodb/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/cassandra_mongodb.jpg" referrerpolicy="no-referrer">
             </div>Cassandra e MongoDB são bancos de dados “NoSQL”, mas na verdade são completamente diferentes. Eles têm qualidades e ofertas completamente diferentes. Que tal começarmos com o início dos pré-requisitos … Nenhum desses bancos de dados substitui o RDBMS nem os bancos de dados “ACID”.Portanto, se você tiver uma carga de trabalho baseada em valor em que a padronização e a consistência sejam as necessidades essenciais, nenhum desses bancos de dados funcionará para você.]]></description>
 </item><item>
     <title>Você sabe o que é Arquitetura Serverless?</title>
-    <link>https://victorleandro.com.br/posts/serverless/</link>
+    <link>https://victorleandroof.github.io/posts/serverless/</link>
     <pubDate>Tue, 28 Sep 2021 20:39:07 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/serverless/</guid>
+    <guid>https://victorleandroof.github.io/posts/serverless/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/arquitetura_serverless.jpg" referrerpolicy="no-referrer">
             </div>Mike Roberts define o termo “sem servidor” como confuso, pois com esses aplicativos há tanto processos de servidor quanto hardware em execução, mas a diferença em relação às abordagens normais é que a organização que cria e suporta um aplicativo “sem servidor” não cuida desse hardware ou dos processos . Eles estão terceirizando essa responsabilidade para outra pessoa.

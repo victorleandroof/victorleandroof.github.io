@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>benford - Tag - Victor Leandro</title>
-        <link>https://victorleandro.com.br/tags/benford/</link>
+        <link>https://victorleandroof.github.io/tags/benford/</link>
         <description>benford - Tag - Victor Leandro</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 12 Oct 2021 08:40:12 -0300</lastBuildDate><atom:link href="https://victorleandro.com.br/tags/benford/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Tue, 12 Oct 2021 08:40:12 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/benford/" rel="self" type="application/rss+xml" /><item>
     <title>A beleza dos padrões numéricos</title>
-    <link>https://victorleandro.com.br/posts/benford_law/</link>
+    <link>https://victorleandroof.github.io/posts/benford_law/</link>
     <pubDate>Tue, 12 Oct 2021 08:40:12 -0300</pubDate>
     <author>Autor</author>
-    <guid>https://victorleandro.com.br/posts/benford_law/</guid>
+    <guid>https://victorleandroof.github.io/posts/benford_law/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/benford_law.jpg" referrerpolicy="no-referrer">
             </div>Será que mundo dos números como dados financeiros, votos, bits em images, amigos em comum em redes sócias tem algum padrão ?
