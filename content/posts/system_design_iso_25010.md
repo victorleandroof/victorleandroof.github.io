@@ -7,7 +7,7 @@ featuredImagePreview: "/images/system_design_iso_25010.png"
 images: [/images/system_design_iso_25010.png]
 seo:
     images: [/images/system_design_iso_25010.png]
-draft: true
+draft: false
 ---
 
 # System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010
