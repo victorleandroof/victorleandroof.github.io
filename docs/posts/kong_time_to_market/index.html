@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna" />
+<meta property="og:description" content="Este post mostra como o Kong API Gateway, usado como BFF, pode diminuir de forma significativa o tempo de entrega de novas funcionalidades em aplicações web. Com base em um caso real e na análise do TCO (Total Cost of Ownership), irei mostrar que uma funcionalidade que normalmente levaria 15 dias para ser desenvolvida pode ser entregue em 6 a 12 dias, dependendo da experiência da equipe. Isso representa uma redução de 20% a 60% no tempo de desenvolvimento." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandroof.github.io/posts/kong_time_to_market/" /><meta property="og:image" content="https://victorleandroof.github.io/images/kong_time_to_market.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-11-16T21:08:21-03:00" />
+<meta property="article:modified_time" content="2025-11-16T21:08:21-03:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandroof.github.io/images/kong_time_to_market.png"/>
+
+<meta name="twitter:title" content="Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna"/>
+<meta name="twitter:description" content="Este post mostra como o Kong API Gateway, usado como BFF, pode diminuir de forma significativa o tempo de entrega de novas funcionalidades em aplicações web. Com base em um caso real e na análise do TCO (Total Cost of Ownership), irei mostrar que uma funcionalidade que normalmente levaria 15 dias para ser desenvolvida pode ser entregue em 6 a 12 dias, dependendo da experiência da equipe. Isso representa uma redução de 20% a 60% no tempo de desenvolvimento."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandroof.github.io/posts/kong_time_to_market/" /><link rel="prev" href="https://victorleandroof.github.io/posts/system_design_iso_25010/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandroof.github.io\/posts\/kong_time_to_market\/"
+        },"genre": "posts","keywords": "kong, time to market, bff, microfrontend, arquitetura","wordcount":  3091 ,
+        "url": "https:\/\/victorleandroof.github.io\/posts\/kong_time_to_market\/","datePublished": "2025-11-16T21:08:21-03:00","dateModified": "2025-11-16T21:08:21-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="16/11/2025">16/11/2025</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;3091 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;15 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/kong_time_to_market.png"
+        data-srcset="/images/kong_time_to_market.png, /images/kong_time_to_market.png 1.5x, /images/kong_time_to_market.png 2x"
+        data-sizes="auto"
+        alt="/images/kong_time_to_market.png"
+        title="/images/kong_time_to_market.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introdução">Introdução</a></li>
+    <li><a href="#o-desafio-do-time-to-market">O Desafio do Time to Market</a></li>
+    <li><a href="#kong-gateway-como-bff-uma-abordagem-declarativa">Kong Gateway como BFF: Uma Abordagem Declarativa</a>
+      <ul>
+        <li><a href="#exemplo-prático-implementação-de-uma-pokedex">Exemplo Prático: Implementação de uma Pokedex</a></li>
+      </ul>
+    </li>
+    <li><a href="#análise-realista-de-ganhos-de-tempo">Análise Realista de Ganhos de Tempo</a>
+      <ul>
+        <li><a href="#tabela-comparativa-por-nível-de-senioridade-no-kong">Tabela Comparativa por nível de senioridade no Kong</a></li>
+        <li><a href="#breakdown-detalhado-para-equipe-experiente">Breakdown Detalhado para Equipe Experiente</a></li>
+      </ul>
+    </li>
+    <li><a href="#configurações-para-ambiente-de-produção">Configurações para Ambiente de Produção</a></li>
+    <li><a href="#segurança-avançada">Segurança Avançada</a>
+      <ul>
+        <li><a href="#implementação-oauth2-completa">Implementação OAuth2 Completa</a></li>
+        <li><a href="#integração-com-keycloak">Integração com Keycloak</a></li>
+      </ul>
+    </li>
+    <li><a href="#monitoramento-e-observabilidade">Monitoramento e Observabilidade</a>
+      <ul>
+        <li><a href="#métricas-críticas-para-monitoramento">Métricas Críticas para Monitoramento</a></li>
+        <li><a href="#dashboard-grafana---métricas-essenciais">Dashboard Grafana - Métricas Essenciais</a></li>
+        <li><a href="#alertas-críticos">Alertas Críticos</a></li>
+      </ul>
+    </li>
+    <li><a href="#testes-automatizados-para-configurações-kong">Testes Automatizados para Configurações Kong</a>
+      <ul>
+        <li><a href="#testes-de-contrato-com-insomnia">Testes de Contrato com Insomnia</a></li>
+        <li><a href="#testes-de-carga-com-k6">Testes de Carga com K6</a></li>
+      </ul>
+    </li>
+    <li><a href="#análise-de-tco-total-cost-of-ownership">Análise de TCO (Total Cost of Ownership)</a>
+      <ul>
+        <li><a href="#comparação-de-custos-operacionais">Comparação de Custos Operacionais</a></li>
+        <li><a href="#análise-de-break-even">Análise de Break-even</a></li>
+      </ul>
+    </li>
+    <li><a href="#potencializando-os-ganhos-com-ia-e-idps">Potencializando os Ganhos com IA e IDPs</a>
+      <ul>
+        <li><a href="#utilizando-a-ia-para-gerar-as-configurações">Utilizando a IA para gerar as configurações</a></li>
+        <li><a href="#pipeline-cicd-automatizado">Pipeline CI/CD Automatizado</a></li>
+        <li><a href="#implementação-com-backstage-idp">Implementação com Backstage (IDP)</a></li>
+      </ul>
+    </li>
+    <li><a href="#anti-padrões-quando-não-usar-kong-como-bff">Anti-Padrões: Quando NÃO Usar Kong como BFF</a>
+      <ul>
+        <li><a href="#cenários-inadequados">Cenários Inadequados</a></li>
+        <li><a href="#padrões-híbridos-recomendados">Padrões Híbridos Recomendados</a></li>
+      </ul>
+    </li>
+    <li><a href="#caso-de-falha-real-lições-aprendidas">Caso de Falha Real: Lições Aprendidas</a>
+      <ul>
+        <li><a href="#incidente-cache-persistente-não-invalidado">Incidente: Cache Persistente Não Invalidado</a></li>
+      </ul>
+    </li>
+    <li><a href="#estudo-de-caso-implementação-real">Estudo de Caso: Implementação Real</a>
+      <ul>
+        <li><a href="#configuração-completa-de-produção">Configuração Completa de Produção</a></li>
+        <li><a href="#consumo-otimizado-no-frontend">Consumo Otimizado no Frontend</a></li>
+        <li><a href="#resultados-mensurados">Resultados Mensurados</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusão-e-recomendações">Conclusão e Recomendações</a>
+      <ul>
+        <li><a href="#benefícios-comprovados">Benefícios Comprovados</a></li>
+        <li><a href="#custos-e-trade-offs">Custos e Trade-offs</a></li>
+        <li><a href="#recomendações-estratégicas-para-implementação">Recomendações Estratégicas para Implementação</a></li>
+        <li><a href="#quando-adotar-esta-abordagem">Quando Adotar Esta Abordagem</a></li>
+      </ul>
+    </li>
+    <li><a href="#github">GITHUB</a></li>
+    <li><a href="#referências">Referências</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><hr>
+<p>Este post mostra como o Kong API Gateway, usado como BFF, pode diminuir de forma significativa o tempo de entrega de novas funcionalidades em aplicações web. Com base em um caso real e na análise do TCO (Total Cost of Ownership), irei mostrar que uma funcionalidade que normalmente levaria 15 dias para ser desenvolvida pode ser entregue em 6 a 12 dias, dependendo da experiência da equipe. Isso representa uma redução de 20% a 60% no tempo de desenvolvimento. Também trago os principais trade-offs, como custos operacionais, e utilização De ferramentas de IA generativa e plataformas de desenvolvimento interno (IDPs) podem tornar esse processo ainda mais eficiente.</p>
+<h2 id="introdução">Introdução</h2>
+<p>No cenário atual de desenvolvimento de software, a agilidade na entrega de novas funcionalidades é um grande diferencial competitivo. Empresas que lançam funcionalidades rapidamente ganham vantagem sobre a concorrência. Por isso, a arquitetura de software tem papel essencial para que a organização responda de forma eficiente às demandas do time de negocio.</p>
+<p>O padrão BFF foi criado para melhorar a comunicação entre o frontend e vários microservices. Normalmente, o BFF é uma camada intermediária de código, feita em Node.js, Python ou outras linguagens. Mesmo assim, essa abordagem exige todo o ciclo de desenvolvimento, testes e implantação para cada nova funcionalidade.</p>
+<p>Neste post, irei abordar uma alternativa: usar o Kong API Gateway como um BFF configurável, sem precisar desenvolver código na camada intermediária.</p>
+<h2 id="o-desafio-do-time-to-market">O Desafio do Time to Market</h2>
+<p>Considere o seguinte cenário comum em muitas empresas:</p>
+<p>Uma equipe de desenvolvimento precisa criar uma nova tela de listagem que consome dados de múltiplas APIs. O fluxo tradicional de desenvolvimento incluiria:</p>
+<ol>
+<li>Desenvolvimento do frontend (5 dias)</li>
+<li>Desenvolvimento do BFF para orquestrar as chamadas às APIs (7 dias)</li>
+<li>Testes de integração (2 dias)</li>
+<li>Implantação (1 dia)</li>
+</ol>
+<p>Total: 15 dias úteis</p>
+<p>Esse processo se repete sempre que uma nova funcionalidade é criada, o que acaba gerando um gargalo importante na entrega.</p>
+<h2 id="kong-gateway-como-bff-uma-abordagem-declarativa">Kong Gateway como BFF: Uma Abordagem Declarativa</h2>
+<p>O Kong API Gateway é uma plataforma open-source para gerenciar APIs e permite configurar tudo de forma declarativa usando arquivos YAML ou JSON. Ao usar o Kong como BFF, não é mais preciso criar código na camada intermediária, pois tudo pode ser feito por meio de configurações.</p>
+<h3 id="exemplo-prático-implementação-de-uma-pokedex">Exemplo Prático: Implementação de uma Pokedex</h3>
+<p>Criei uma Pokedex que consome dados da PokeAPI para fazer uma simples comparação:</p>
+<h4 id="abordagem-tradicional-bff-em-código">Abordagem Tradicional (BFF em código)</h4>
+<pre tabindex="0"><code>Frontend → BFF (Node.js/Python) → PokeAPI
+</code></pre><h4 id="abordagem-com-kong-gateway">Abordagem com Kong Gateway</h4>
+<pre tabindex="0"><code>Frontend → Kong Gateway → PokeAPI
+</code></pre><p>Exemplo de configuração básica do Kong para essa funcionalidade:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokeapi-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://pokeapi.co/api/v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokeapi-route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">/api/pokedex</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">strip_path</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cors</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rate-limiting</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">request-transformer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">response-transformer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">proxy-cache</span><span class="w">
+</span></span></span></code></pre></div><h2 id="análise-realista-de-ganhos-de-tempo">Análise Realista de Ganhos de Tempo</h2>
+<p>Com o uso do Kong Gateway, o tempo de desenvolvimento depende do nível de senioridade da equipe:</p>
+<h3 id="tabela-comparativa-por-nível-de-senioridade-no-kong">Tabela Comparativa por nível de senioridade no Kong</h3>
+<table>
+<thead>
+<tr>
+<th>Habilidade da Equipe</th>
+<th>Tempo Tradicional</th>
+<th>Tempo com Kong</th>
+<th>Redução</th>
+<th>Observações</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Iniciante</strong></td>
+<td>18 dias</td>
+<td>12 dias</td>
+<td>33%</td>
+<td>Inclui 3 dias de aprendizado do Kong</td>
+</tr>
+<tr>
+<td><strong>Intermediária</strong></td>
+<td>15 dias</td>
+<td>9 dias</td>
+<td>40%</td>
+<td>Inclui 1 dia de aprendizado</td>
+</tr>
+<tr>
+<td><strong>Experiente</strong></td>
+<td>12 dias</td>
+<td>6 dias</td>
+<td>50%</td>
+<td>Equipe já familiarizada com API Gateways</td>
+</tr>
+</tbody>
+</table>
+<h3 id="breakdown-detalhado-para-equipe-experiente">Breakdown Detalhado para Equipe Experiente</h3>
+<ol>
+<li><strong>Desenvolvimento do frontend</strong> (5 dias)</li>
+<li><strong>Configuração do Kong Gateway</strong> (0.5 dia)</li>
+<li><strong>Testes de integração</strong> (0.5 dia - simplificados)</li>
+<li><strong>Implantação</strong> (0.25 dia - automatizada)</li>
+</ol>
+<p><strong>Total</strong>: 6.25 dias úteis</p>
+<h2 id="configurações-para-ambiente-de-produção">Configurações para Ambiente de Produção</h2>
+<p>A configuração básica mostrada antes funciona bem para desenvolvimento, mas ambientes de produção precisam de configurações mais completas:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">_format_version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">_transform</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokeapi-secure</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://pokeapi.co/api/v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">connect_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">write_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">read_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">secure-pokeapi-route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/api/pokedex]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">protocols</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">https]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">strip_path</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">preserve_host</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Segurança OAuth2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">oauth2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">pokemon.read, pokemon.write]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mandatory_scope</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">token_expiration</span><span class="p">:</span><span class="w"> </span><span class="m">7200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enable_authorization_code</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enable_client_credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enable_implicit_grant</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enable_password_grant</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Rate Limiting Avançado</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rate-limiting-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="m">10000</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">3600</span><span class="p">,</span><span class="w"> </span><span class="m">86400</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l">consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">sync_rate</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l">cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">dictionary_name</span><span class="p">:</span><span class="w"> </span><span class="l">kong_rate_limiting_counters</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hide_client_headers</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Circuit Breaker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">proxy-cache-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">response_code</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">301</span><span class="p">,</span><span class="w"> </span><span class="m">404</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">request_method</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, HEAD]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">content_type</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">application/json]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l">memory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">dictionary_name</span><span class="p">:</span><span class="w"> </span><span class="l">kong_db_cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Observabilidade</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">zipkin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">http_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">http://jaeger:9411/api/v2/spans</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">include_credential</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">traceid_byte_count</span><span class="p">:</span><span class="w"> </span><span class="m">16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spanid_byte_count</span><span class="p">:</span><span class="w"> </span><span class="m">8</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">default_service_name</span><span class="p">:</span><span class="w"> </span><span class="l">kong-bff</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Transformações Avançadas</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">request-transformer-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">add</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-API-Source:Kong-Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Request-ID:R$(uuid)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Forwarded-Proto:https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">remove</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">X-Internal-Token]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Health Checks</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">upstream-health-check</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">http_path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">healthy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">http_statuses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">302</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">successes</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">unhealthy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">http_statuses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">429</span><span class="p">,</span><span class="w"> </span><span class="m">404</span><span class="p">,</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="m">501</span><span class="p">,</span><span class="w"> </span><span class="m">502</span><span class="p">,</span><span class="w"> </span><span class="m">503</span><span class="p">,</span><span class="w"> </span><span class="m">504</span><span class="p">,</span><span class="w"> </span><span class="m">505</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">tcp_failures</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">timeouts</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">http_failures</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">consumers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-frontend-prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">custom_id</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-app-v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">oauth2_credentials</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-oauth-client</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-client-prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l">super-secret-key-prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">redirect_uris</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">https://pokedex.company.com/callback]</span><span class="w">
+</span></span></span></code></pre></div><h2 id="segurança-avançada">Segurança Avançada</h2>
+<h3 id="implementação-oauth2-completa">Implementação OAuth2 Completa</h3>
+<p>Na vida real, usar apenas API Key para autenticação não é suficiente. Veja abaixo como implementar OAuth2 com o Kong:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">oauth2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">pokemon.read, pokemon.write, pokemon.admin]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mandatory_scope</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">token_expiration</span><span class="p">:</span><span class="w"> </span><span class="m">7200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">enable_authorization_code</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">enable_client_credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">enable_implicit_grant</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">enable_password_grant</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">global_credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">anonymous</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">hide_credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">accept_http_if_already_terminated</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><h3 id="integração-com-keycloak">Integração com Keycloak</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">oidc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l">kong-client</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l">kong-client-secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">discovery</span><span class="p">:</span><span class="w"> </span><span class="l">https://keycloak.company.com/auth/realms/master/.well-known/openid_configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l">openid profile email</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">bearer_only</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">introspection_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">https://keycloak.company.com/auth/realms/master/protocol/openid-connect/token/introspect</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">logout_path</span><span class="p">:</span><span class="w"> </span><span class="l">/logout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">redirect_after_logout_uri</span><span class="p">:</span><span class="w"> </span><span class="l">https://pokedex.company.com</span><span class="w">
+</span></span></span></code></pre></div><h2 id="monitoramento-e-observabilidade">Monitoramento e Observabilidade</h2>
+<h3 id="métricas-críticas-para-monitoramento">Métricas Críticas para Monitoramento</h3>
+<p>O Kong como BFF tem que ser monitorado, segue um exemplo de configuração das métricas:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Prometheus Plugin Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">per_consumer</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">status_code_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">latency_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">bandwidth_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">upstream_health_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><h3 id="dashboard-grafana---métricas-essenciais">Dashboard Grafana - Métricas Essenciais</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-promql" data-lang="promql"><span class="line"><span class="cl"><span class="c1"># Latência P95 do Kong</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kr">histogram_quantile</span><span class="o">(</span><span class="mf">0.95</span><span class="p">,</span><span class="w"> </span><span class="kr">rate</span><span class="o">(</span><span class="nv">kong_http_request_duration_ms_bucket</span><span class="p">[</span><span class="s">5m</span><span class="p">]</span><span class="o">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># Taxa de Erro por Serviço</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kr">rate</span><span class="o">(</span><span class="nv">kong_http_status</span><span class="p">{</span><span class="nl">service</span><span class="o">=</span><span class="p">&#34;</span><span class="s">pokeapi-service</span><span class="p">&#34;,</span><span class="w"> </span><span class="nl">code</span><span class="o">=~</span><span class="p">&#34;</span><span class="s">5..</span><span class="p">&#34;}[</span><span class="s">5m</span><span class="p">]</span><span class="o">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># Eficiência do Cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nv">kong_cache_hit_total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="o">(</span><span class="nv">kong_cache_hit_total</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">kong_cache_miss_total</span><span class="o">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># Throughput por Consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kr">rate</span><span class="o">(</span><span class="nv">kong_http_requests_total</span><span class="p">{</span><span class="nl">consumer</span><span class="o">=</span><span class="p">&#34;</span><span class="s">pokedex-frontend</span><span class="p">&#34;}[</span><span class="s">5m</span><span class="p">]</span><span class="o">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1"># Uso de Bandwidth</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kr">rate</span><span class="o">(</span><span class="nv">kong_bandwidth_bytes</span><span class="p">[</span><span class="s">5m</span><span class="p">]</span><span class="o">)</span><span class="w">
+</span></span></span></code></pre></div><h3 id="alertas-críticos">Alertas Críticos</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Alertmanager Rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">groups</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kong-bff-alerts</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">KongHighLatency</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">histogram_quantile(0.95, rate(kong_http_request_duration_ms_bucket[5m])) &gt; 1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">2m</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Kong BFF high latency detected&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">KongHighErrorRate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">rate(kong_http_status{code=~&#34;5..&#34;}[5m]) &gt; 0.1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">critical</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Kong BFF error rate above 10%&#34;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="testes-automatizados-para-configurações-kong">Testes Automatizados para Configurações Kong</h2>
+<h3 id="testes-de-contrato-com-insomnia">Testes de Contrato com Insomnia</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># insomnia-test-suite.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">scenarios</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Rate Limiting Validation&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">flow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Get OAuth Token&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l">POST</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ base_url }}/oauth2/token&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">body</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">grant_type</span><span class="p">:</span><span class="w"> </span><span class="l">client_credentials</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ client_id }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ client_secret }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">json</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;R$.access_token&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">exists</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Test Rate Limiting&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l">GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ base_url }}/api/pokedex/pokemon&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Bearer {{ oauth_token }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">loop</span><span class="p">:</span><span class="w"> </span><span class="m">110</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">max_attempts</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="m">429</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">min_attempts</span><span class="p">:</span><span class="w"> </span><span class="m">101</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Security Headers Validation&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">flow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Check Security Headers&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l">GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ base_url }}/api/pokedex/pokemon/1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">Authorization</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Bearer {{ oauth_token }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tests</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">header</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;X-Content-Type-Options&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">equals</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;nosniff&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">header</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;X-Frame-Options&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">equals</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;DENY&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">header</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;X-XSS-Protection&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">equals</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1; mode=block&#34;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="testes-de-carga-com-k6">Testes de Carga com K6</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// k6-load-test.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">http</span> <span class="nx">from</span> <span class="s1">&#39;k6/http&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">check</span><span class="p">,</span> <span class="nx">sleep</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;k6&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">let</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">stages</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span> <span class="s1">&#39;2m&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="o">:</span> <span class="mi">100</span> <span class="p">},</span> <span class="c1">// Ramp up
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="o">:</span> <span class="mi">100</span> <span class="p">},</span> <span class="c1">// Stay at 100 users
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span> <span class="s1">&#39;2m&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="o">:</span> <span class="mi">200</span> <span class="p">},</span> <span class="c1">// Ramp up to 200 users
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="o">:</span> <span class="mi">200</span> <span class="p">},</span> <span class="c1">// Stay at 200 users
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span> <span class="s1">&#39;2m&#39;</span><span class="p">,</span> <span class="nx">target</span><span class="o">:</span> <span class="mi">0</span> <span class="p">},</span>   <span class="c1">// Ramp down
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">thresholds</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">http_req_duration</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;p(95)&lt;1000&#39;</span><span class="p">],</span> <span class="c1">// 95% of requests under 1s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">http_req_failed</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;rate&lt;0.1&#39;</span><span class="p">],</span>     <span class="c1">// Error rate under 10%
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://api.company.com/api/pokedex/pokemon&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;Authorization&#39;</span><span class="o">:</span> <span class="s1">&#39;Bearer &#39;</span> <span class="o">+</span> <span class="nx">__ENV</span><span class="p">.</span><span class="nx">OAUTH_TOKEN</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">check</span><span class="p">(</span><span class="nx">response</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;status is 200&#39;</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;response time &lt; 500ms&#39;</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">timings</span><span class="p">.</span><span class="nx">duration</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;cache header present&#39;</span><span class="o">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;X-Cache-Status&#39;</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="análise-de-tco-total-cost-of-ownership">Análise de TCO (Total Cost of Ownership)</h2>
+<h3 id="comparação-de-custos-operacionais">Comparação de Custos Operacionais</h3>
+<table>
+<thead>
+<tr>
+<th>Fator</th>
+<th>Kong Gateway</th>
+<th>BFF Tradicional</th>
+<th>Diferença</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Infraestrutura</strong></td>
+<td>R$1,500/mês (3 nós K8s)</td>
+<td>R$300/mês (Lambda/Serverless)</td>
+<td>+R$1,200/mês</td>
+</tr>
+<tr>
+<td><strong>DevOps/SRE</strong></td>
+<td>20h/sprint</td>
+<td>5h/sprint</td>
+<td>+15h/sprint</td>
+</tr>
+<tr>
+<td><strong>Desenvolvimento</strong></td>
+<td>10h/feature</td>
+<td>40h/feature</td>
+<td>-30h/feature</td>
+</tr>
+<tr>
+<td><strong>Manutenção</strong></td>
+<td>5h/mês</td>
+<td>20h/mês</td>
+<td>-15h/mês</td>
+</tr>
+<tr>
+<td><strong>Monitoramento</strong></td>
+<td>Incluído</td>
+<td>R$200/mês (APM)</td>
+<td>-R$200/mês</td>
+</tr>
+<tr>
+<td><strong>Licenciamento</strong></td>
+<td>R$0 (OSS)</td>
+<td>R$0</td>
+<td>R$0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="análise-de-break-even">Análise de Break-even</h3>
+<p>Considerando um custo médio de desenvolvedor de R$80/hora:</p>
+<ul>
+<li><strong>Kong</strong>: Custo inicial alto, mas economia significativa em desenvolvimento</li>
+<li><strong>BFF Tradicional</strong>: Custo inicial baixo, mas alto custo de manutenção</li>
+</ul>
+<p><strong>Break-even</strong>: Aproximadamente 3-4 features por mês para justificar o investimento em Kong.</p>
+<h2 id="potencializando-os-ganhos-com-ia-e-idps">Potencializando os Ganhos com IA e IDPs</h2>
+<h3 id="utilizando-a-ia-para-gerar-as-configurações">Utilizando a IA para gerar as configurações</h3>
+<p>Exemplo de prompt:</p>
+<pre tabindex="0"><code>Prompt: &#34;Gere uma configuração Kong para:
+- Endpoint: /api/users
+- Backend: https://users-service.internal:8080
+- Autenticação: OAuth2 com scopes [users.read, users.write]
+- Rate limiting: 1000 req/min por consumer
+- Cache: 5 minutos para GET requests
+- Transformação: Adicionar header X-API-Version: v2&#34;
+
+Resposta do LLM:
+</code></pre><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">users-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://users-service.internal:8080</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">users-api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/api/users]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">strip_path</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">oauth2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">users.read, users.write]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mandatory_scope</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">token_expiration</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rate-limiting</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">minute</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">policy</span><span class="p">:</span><span class="w"> </span><span class="l">cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">proxy-cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">request_method</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">content_type</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">application/json]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">request-transformer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">add</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">X-API-Version:v2]</span><span class="w">
+</span></span></span></code></pre></div><h3 id="pipeline-cicd-automatizado">Pipeline CI/CD Automatizado</h3>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph TD
+    A[Swagger/OpenAPI] --&gt; B{LLM Agent}
+    B --&gt; C[Kong Config YAML]
+    C --&gt; D[GitLab CI]
+    D --&gt; E[Validation Tests]
+    E --&gt; F{Tests Pass?}
+    F --&gt;|Yes| G[Kong Dev Environment]
+    F --&gt;|No| H[Notify Developer]
+    G --&gt; I[Integration Tests]
+    I --&gt; J{Tests Pass?}
+    J --&gt;|Yes| K[Kong Staging]
+    J --&gt;|No| H
+    K --&gt; L[Load Tests]
+    L --&gt; M{Performance OK?}
+    M --&gt;|Yes| N[Kong Production]
+    M --&gt;|No| H
+    H --&gt; C
+</code></pre><h3 id="implementação-com-backstage-idp">Implementação com Backstage (IDP)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># backstage-template.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">scaffolder.backstage.io/v1beta3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Template</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kong-bff-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Kong BFF Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Create a new BFF service using Kong Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Service Information</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">properties</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Service Name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">backend_url</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Backend Service URL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">auth_type</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Authentication Type</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">oauth2, key-auth, jwt]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">generate-kong-config</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Generate Kong Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">llm:generate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          Generate Kong configuration for service {{ parameters.name }}
+</span></span></span><span class="line"><span class="cl"><span class="sd">          Backend: {{ parameters.backend_url }}
+</span></span></span><span class="line"><span class="cl"><span class="sd">          Auth: {{ parameters.auth_type }}</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">create-repo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Create Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">action</span><span class="p">:</span><span class="w"> </span><span class="l">publish:github</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">input</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">repoUrl</span><span class="p">:</span><span class="w"> </span><span class="l">github.com/company/{{ parameters.name }}-kong-config</span><span class="w">
+</span></span></span></code></pre></div><h2 id="anti-padrões-quando-não-usar-kong-como-bff">Anti-Padrões: Quando NÃO Usar Kong como BFF</h2>
+<h3 id="cenários-inadequados">Cenários Inadequados</h3>
+<ol>
+<li>
+<p><strong>Processamento de Streams em Tempo Real</strong></p>
+<pre tabindex="0"><code>❌ WebSocket connections com lógica de negócio complexa
+❌ Server-Sent Events com transformações dinâmicas
+❌ Processamento de eventos em tempo real
+</code></pre></li>
+<li>
+<p><strong>Orquestração Complexa de Múltiplos Serviços</strong></p>
+<pre tabindex="0"><code>❌ Saga patterns com compensação
+❌ Workflows com decisões condicionais baseadas em dados
+❌ Agregação de dados com joins complexos
+</code></pre></li>
+<li>
+<p><strong>Transformações de Dados Avançadas</strong></p>
+<pre tabindex="0"><code>❌ Conversão de formatos (XML para JSON com validação)
+❌ Cálculos matemáticos complexos
+❌ Processamento de imagens ou arquivos
+</code></pre></li>
+</ol>
+<h3 id="padrões-híbridos-recomendados">Padrões Híbridos Recomendados</h3>
+<p>Para situações que precisam de lógica mais complexa, o ideal é usar o Kong como porta de entrada e complementar com funções serverless:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Kong como entrada + Lambda para lógica complexa</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">complex-aggregation-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://lambda-aggregator.aws.com/api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">aggregation-route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/api/dashboard]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">aws-lambda</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">aws_key</span><span class="p">:</span><span class="w"> </span><span class="l">AKIAIOSFODNN7EXAMPLE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">aws_secret</span><span class="p">:</span><span class="w"> </span><span class="l">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">aws_region</span><span class="p">:</span><span class="w"> </span><span class="l">us-east-1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">function_name</span><span class="p">:</span><span class="w"> </span><span class="l">dashboard-aggregator</span><span class="w">
+</span></span></span></code></pre></div><h2 id="caso-de-falha-real-lições-aprendidas">Caso de Falha Real: Lições Aprendidas</h2>
+<h3 id="incidente-cache-persistente-não-invalidado">Incidente: Cache Persistente Não Invalidado</h3>
+<p><strong>Data</strong>: Março 2023<br>
+<strong>Duração</strong>: 2 horas de downtime<br>
+<strong>Causa</strong>: Deployment de nova versão da API sem invalidação do cache do Kong</p>
+<p><strong>Configuração Problemática</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">proxy-cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">  </span><span class="c"># 1 hora - muito alto para dados dinâmicos</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l">memory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Faltou configuração de invalidação</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Solução Implementada</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">proxy-cache-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">  </span><span class="c"># Reduzido para 5 minutos</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">redis</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">redis-cluster.internal</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6379</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">vary_headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">X-API-Version]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cache_control</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># Respeita headers Cache-Control</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Invalidação automática via webhook</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">webhook</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://cache-invalidator.internal/webhook</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l">POST</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">X-Cache-Invalidate</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Lições Aprendidas</strong>:</p>
+<ol>
+<li>Cache TTL deve ser proporcional à volatilidade dos dados</li>
+<li>Implementar estratégia de invalidação de cache</li>
+<li>Monitoramento de cache hit/miss ratio é essencial</li>
+<li>Testes de deployment devem incluir validação de cache</li>
+</ol>
+<h2 id="estudo-de-caso-implementação-real">Estudo de Caso: Implementação Real</h2>
+<p>Na Pokedex o frontend foi feito como um microfrontend em React, e o Kong Gateway foi configurado para atuar como BFF.</p>
+<h3 id="configuração-completa-de-produção">Configuração Completa de Produção</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">_format_version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">_transform</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokeapi-service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">https://pokeapi.co/api/v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">connect_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">write_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">read_timeout</span><span class="p">:</span><span class="w"> </span><span class="m">60000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">retries</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokeapi-route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">/api/pokedex]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">protocols</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">https]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">strip_path</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">preserve_host</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># CORS Configurado para Produção</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cors</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">origins</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">https://pokedex.company.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">https://pokedex-staging.company.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, POST, PUT, DELETE, OPTIONS]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">Content-Type, Authorization, X-API-Key]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">exposed_headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">X-RateLimit-Remaining, X-RateLimit-Reset]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">max_age</span><span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">preflight_continue</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Rate Limiting por Consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rate-limiting-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="m">10000</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">window_size</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">3600</span><span class="p">,</span><span class="w"> </span><span class="m">86400</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="l">consumer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">sync_rate</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">redis</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">redis-cluster.internal</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6379</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hide_client_headers</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Autenticação OAuth2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">oauth2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">pokemon.read]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mandatory_scope</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">token_expiration</span><span class="p">:</span><span class="w"> </span><span class="m">7200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enable_authorization_code</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">enable_client_credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">global_credentials</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">anonymous</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Transformações de Request</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">request-transformer-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">add</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-API-Source:Kong-Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Request-ID:R$(uuid)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Forwarded-Proto:https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Real-IP:R$(remote_addr)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">remove</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">X-Internal-Token]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">replace</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">User-Agent:Pokedex-BFF/1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Transformações de Response</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">response-transformer-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">add</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">headers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Powered-By:Kong-BFF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Cache-Status:R$(upstream_cache_status)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span>- <span class="l">X-Response-Time:R$(upstream_response_time)ms</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">json</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">bff_metadata.source:kong-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">bff_metadata.version:v1.2.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">bff_metadata.timestamp:R$(time_iso8601)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Cache Avançado</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">proxy-cache-advanced</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">response_code</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">301</span><span class="p">,</span><span class="w"> </span><span class="m">404</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">request_method</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, HEAD]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">content_type</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">application/json]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">strategy</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">redis</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">redis-cluster.internal</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6379</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">vary_headers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">Accept-Language, X-API-Version]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache_control</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ignore_uri_case</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Observabilidade</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">zipkin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">http_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">http://jaeger:9411/api/v2/spans</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">sample_ratio</span><span class="p">:</span><span class="w"> </span><span class="m">0.1</span><span class="w">  </span><span class="c"># 10% sampling para produção</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">include_credential</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">traceid_byte_count</span><span class="p">:</span><span class="w"> </span><span class="m">16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">spanid_byte_count</span><span class="p">:</span><span class="w"> </span><span class="m">8</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">default_service_name</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-bff</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Métricas Prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">per_consumer</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">status_code_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">latency_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">bandwidth_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">upstream_health_metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">consumers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-frontend-prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">custom_id</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-app-v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">oauth2_credentials</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-oauth-client</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-client-prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l">R${POKEDEX_CLIENT_SECRET}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">redirect_uris</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">https://pokedex.company.com/callback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">https://pokedex.company.com/silent-refresh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">acls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">pokedex-users</span><span class="w">
+</span></span></span></code></pre></div><h3 id="consumo-otimizado-no-frontend">Consumo Otimizado no Frontend</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// services/pokemonService.ts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">interface</span> <span class="nx">BFFMetadata</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">source</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">version</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">timestamp</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Pokemon</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">id</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sprites</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">front_default</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">other</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;official-artwork&#39;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">front_default</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">types</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">type</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">stats</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">base_stat</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">stat</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">height</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">weight</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">abilities</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ability</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// BFF added metadata
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">bff_metadata?</span>: <span class="kt">BFFMetadata</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">interface</span> <span class="nx">PokemonListResponse</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">count</span>: <span class="kt">number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">next</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">previous</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">results</span>: <span class="kt">Array</span><span class="o">&lt;</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">url</span>: <span class="kt">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">bff_metadata?</span>: <span class="kt">BFFMetadata</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">PokemonService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="kr">readonly</span> <span class="nx">API_URL</span> <span class="o">=</span> <span class="s1">&#39;/api/pokedex&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">accessToken</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">tokenExpiry</span>: <span class="kt">number</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="kr">async</span> <span class="nx">getAccessToken</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">string</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">accessToken</span> <span class="o">&amp;&amp;</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">tokenExpiry</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">accessToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/oauth2/token&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-form-urlencoded&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">body</span>: <span class="kt">new</span> <span class="nx">URLSearchParams</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">grant_type</span><span class="o">:</span> <span class="s1">&#39;client_credentials&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">client_id</span>: <span class="kt">process.env.REACT_APP_CLIENT_ID</span><span class="o">!</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">client_secret</span>: <span class="kt">process.env.REACT_APP_CLIENT_SECRET</span><span class="o">!</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">scope</span><span class="o">:</span> <span class="s1">&#39;pokemon.read&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Failed to obtain access token&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">tokenData</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">accessToken</span> <span class="o">=</span> <span class="nx">tokenData</span><span class="p">.</span><span class="nx">access_token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="p">.</span><span class="nx">tokenExpiry</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="nx">tokenData</span><span class="p">.</span><span class="nx">expires_in</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60000</span><span class="p">;</span> <span class="c1">// 1 min buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">accessToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error obtaining access token:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="kr">async</span> <span class="nx">makeAuthenticatedRequest</span><span class="p">(</span><span class="nx">url</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">options</span>: <span class="kt">RequestInit</span> <span class="o">=</span> <span class="p">{})</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">Response</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">getAccessToken</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;Authorization&#39;</span><span class="o">:</span> <span class="sb">`Bearer R</span><span class="si">${</span><span class="nx">token</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;X-API-Version&#39;</span><span class="o">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">options</span><span class="p">.</span><span class="nx">headers</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">...</span><span class="nx">options</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">headers</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Log BFF metadata for debugging
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">cacheStatus</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s1">&#39;X-Cache-Status&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">responseTime</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s1">&#39;X-Response-Time&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">&#39;development&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`API Call: R</span><span class="si">${</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cacheStatus</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">responseTime</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">rateLimitRemaining</span>: <span class="kt">response.headers.get</span><span class="p">(</span><span class="s1">&#39;X-RateLimit-Remaining&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">fetchPokemonList</span><span class="p">(</span><span class="nx">limit</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">PokemonListResponse</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">makeAuthenticatedRequest</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="sb">`R</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">API_URL</span><span class="si">}</span><span class="sb">/pokemon?limit=R</span><span class="si">${</span><span class="nx">limit</span><span class="si">}</span><span class="sb">&amp;offset=R</span><span class="si">${</span><span class="nx">offset</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`Failed to fetch Pokemon list: R</span><span class="si">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="sb"> R</span><span class="si">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusText</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error fetching Pokemon list:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">fetchPokemonDetail</span><span class="p">(</span><span class="nx">idOrName</span>: <span class="kt">string</span> <span class="o">|</span> <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">Pokemon</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">makeAuthenticatedRequest</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="sb">`R</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">API_URL</span><span class="si">}</span><span class="sb">/pokemon/R</span><span class="si">${</span><span class="nx">idOrName</span><span class="si">}</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="sb">`Failed to fetch Pokemon R</span><span class="si">${</span><span class="nx">idOrName</span><span class="si">}</span><span class="sb">: R</span><span class="si">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="si">}</span><span class="sb"> R</span><span class="si">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">statusText</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`Error fetching Pokemon R</span><span class="si">${</span><span class="nx">idOrName</span><span class="si">}</span><span class="sb">:`</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Método para invalidar cache específico (útil para atualizações)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">async</span> <span class="nx">invalidateCache</span><span class="p">(</span><span class="nx">endpoint</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">void</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">makeAuthenticatedRequest</span><span class="p">(</span><span class="sb">`R</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">API_URL</span><span class="si">}</span><span class="sb">/cache/invalidate`</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">body</span>: <span class="kt">JSON.stringify</span><span class="p">({</span> <span class="nx">endpoint</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;Failed to invalidate cache:&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// Não falha a operação principal se cache invalidation falhar
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">pokemonService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PokemonService</span><span class="p">();</span>
+</span></span></code></pre></div><h3 id="resultados-mensurados">Resultados Mensurados</h3>
+<p>Esta implementação permitiu que entregasse a funcionalidade com os seguintes resultados:</p>
+<ul>
+<li><strong>Tempo de desenvolvimento</strong>: 6 dias (vs. 15 dias estimados inicialmente)</li>
+<li><strong>Redução de código</strong>: 85% menos código no BFF (configuração vs. implementação)</li>
+<li><strong>Performance</strong>: P95 latency &lt; 200ms (incluindo cache hits)</li>
+<li><strong>Cache hit ratio</strong>: 78% para endpoints de listagem</li>
+</ul>
+<h2 id="conclusão-e-recomendações">Conclusão e Recomendações</h2>
+<p>Usar o Kong Gateway como BFF é uma forma inovadora de acelerar o lançamento de novas funcionalidades. Os benefícios são evidentes, mas é importante equilibrar com os custos e a complexidade operacional:</p>
+<h3 id="benefícios-comprovados">Benefícios Comprovados</h3>
+<ul>
+<li><strong>Redução significativa no tempo de desenvolvimento</strong> (20-60% dependendo da maturidade da equipe)</li>
+<li><strong>Eliminação de código boilerplate</strong> (85% menos código para funcionalidades básicas)</li>
+<li><strong>Padronização de funcionalidades</strong> como autenticação, cache e rate limiting</li>
+<li><strong>Maior facilidade de manutenção</strong> através de configurações declarativas</li>
+<li><strong>Observabilidade nativa</strong> com métricas e tracing integrados</li>
+</ul>
+<h3 id="custos-e-trade-offs">Custos e Trade-offs</h3>
+<ul>
+<li><strong>Custo operacional inicial mais alto</strong> (R$1,200/mês adicional em infraestrutura)</li>
+<li><strong>Curva de aprendizado</strong> para equipes não familiarizadas com API Gateways</li>
+<li><strong>Complexidade de debugging</strong> em comparação com código tradicional</li>
+<li><strong>Limitações em transformações complexas</strong> de dados</li>
+</ul>
+<h3 id="recomendações-estratégicas-para-implementação">Recomendações Estratégicas para Implementação</h3>
+<ol>
+<li>
+<p><strong>Análise de Viabilidade</strong></p>
+<ul>
+<li>Calcule o break-even baseado no número de features por mês (tipicamente 3-4 features)</li>
+<li>Avalie a maturidade da equipe com API Gateways</li>
+<li>Considere começar com um projeto piloto de baixo risco</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementação Gradual</strong></p>
+<ul>
+<li>Comece com casos de uso simples (proxy + transformações básicas)</li>
+<li>Implemente observabilidade desde o início</li>
+<li>Estabeleça processos de CI/CD para configurações</li>
+</ul>
+</li>
+<li>
+<p><strong>Automação e Ferramentas</strong></p>
+<ul>
+<li>Invista em LLMs para geração de configurações</li>
+<li>Implemente IDPs para padronização</li>
+<li>Automatize testes de configuração</li>
+</ul>
+</li>
+<li>
+<p><strong>Governança e Padrões</strong></p>
+<ul>
+<li>Defina convenções claras para nomeação e estruturação</li>
+<li>Implemente revisão de código para configurações YAML</li>
+<li>Estabeleça políticas de cache e segurança</li>
+</ul>
+</li>
+<li>
+<p><strong>Monitoramento Contínuo</strong></p>
+<ul>
+<li>Monitore métricas de performance e disponibilidade</li>
+<li>Compare tempos de desenvolvimento antes/depois</li>
+<li>Ajuste configurações baseado em dados reais</li>
+</ul>
+</li>
+<li>
+<p><strong>Estratégia Híbrida</strong></p>
+<ul>
+<li>Use Kong para operações simples</li>
+<li>Mantenha BFFs tradicionais para lógicas complexas</li>
+<li>Considere serverless functions para casos específicos</li>
+</ul>
+</li>
+</ol>
+<h3 id="quando-adotar-esta-abordagem">Quando Adotar Esta Abordagem</h3>
+<p><strong>Cenários Ideais</strong>:</p>
+<ul>
+<li>Equipes com 3+ features por mês</li>
+<li>Arquitetura de microserviços estabelecida</li>
+<li>Necessidade de padronização de APIs</li>
+<li>Foco em time to market</li>
+</ul>
+<p><strong>Cenários a Evitar</strong>:</p>
+<ul>
+<li>Lógica de negócio complexa no BFF</li>
+<li>Equipes muito pequenas (&lt; 3 desenvolvedores)</li>
+<li>Orçamento limitado para infraestrutura</li>
+<li>Processamento de dados em tempo real</li>
+</ul>
+<p>Acelerar o time to market é um objetivo estratégico para empresas de tecnologia. O Kong Gateway como BFF é uma solução prática para isso, mas sua implementação exige planejamento cuidadoso e análise dos trade-offs envolvidos.</p>
+<p>O sucesso dessa abordagem depende não só da tecnologia, mas também da capacidade da empresa de adaptar processos, treinar as equipes e criar práticas operacionais que aumentem os benefícios e reduzam os riscos.</p>
+<h2 id="github">GITHUB</h2>
+<p>Codigo Fonte: <a href="https://github.com/victorleandroof/kong-bff-article" target="_blank" rel="noopener noreffer">https://github.com/victorleandroof/kong-bff-article</a></p>
+<h2 id="referências">Referências</h2>
+<ol>
+<li>Kong API Gateway Documentation: <a href="https://docs.konghq.com/" target="_blank" rel="noopener noreffer">https://docs.konghq.com/</a></li>
+<li>BFF Pattern: <a href="https://samnewman.io/patterns/architectural/bff/" target="_blank" rel="noopener noreffer">https://samnewman.io/patterns/architectural/bff/</a></li>
+<li>Declarative Configuration in Kong: <a href="https://docs.konghq.com/gateway/latest/production/deployment-topologies/db-less-and-declarative-config/" target="_blank" rel="noopener noreffer">https://docs.konghq.com/gateway/latest/production/deployment-topologies/db-less-and-declarative-config/</a></li>
+<li>API Gateway Pattern: <a href="https://microservices.io/patterns/apigateway.html" target="_blank" rel="noopener noreffer">https://microservices.io/patterns/apigateway.html</a></li>
+<li>Time to Market in Software Development: <a href="https://www.mckinsey.com/business-functions/mckinsey-digital/our-insights/tech-forward/how-to-improve-software-development-productivity" target="_blank" rel="noopener noreffer">https://www.mckinsey.com/business-functions/mckinsey-digital/our-insights/tech-forward/how-to-improve-software-development-productivity</a></li>
+<li>OAuth2 RFC 6749: <a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="noopener noreffer">https://tools.ietf.org/html/rfc6749</a></li>
+<li>Prometheus Monitoring Best Practices: <a href="https://prometheus.io/docs/practices/naming/" target="_blank" rel="noopener noreffer">https://prometheus.io/docs/practices/naming/</a></li>
+<li>Circuit Breaker Pattern: <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreffer">https://martinfowler.com/bliki/CircuitBreaker.html</a></li>
+<li>Distributed Tracing with Jaeger: <a href="https://www.jaegertracing.io/docs/" target="_blank" rel="noopener noreffer">https://www.jaegertracing.io/docs/</a></li>
+<li>API Security Best Practices: <a href="https://owasp.org/www-project-api-security/" target="_blank" rel="noopener noreffer">https://owasp.org/www-project-api-security/</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 16/11/2025</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandroof.github.io/posts/kong_time_to_market/" data-title="Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna" data-via="https://twitter.com/victorleandroof" data-hashtags="kong,time to market,bff,microfrontend,arquitetura"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kong/">kong</a>,&nbsp;<a href="/tags/time-to-market/">time to market</a>,&nbsp;<a href="/tags/bff/">bff</a>,&nbsp;<a href="/tags/microfrontend/">microfrontend</a>,&nbsp;<a href="/tags/arquitetura/">arquitetura</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/system_design_iso_25010/" class="prev" rel="prev" title="System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010"><i class="fas fa-angle-left fa-fw"></i>System Design Interview: Tomada de Decisão Baseada Dados com ISO 25010</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

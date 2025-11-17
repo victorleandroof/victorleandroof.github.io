@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>microfrontend - Tag - Victor Leandro</title>
+        <link>https://victorleandroof.github.io/tags/microfrontend/</link>
+        <description>microfrontend - Tag - Victor Leandro</description>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 16 Nov 2025 21:08:21 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/microfrontend/" rel="self" type="application/rss+xml" /><item>
+    <title>Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna</title>
+    <link>https://victorleandroof.github.io/posts/kong_time_to_market/</link>
+    <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/posts/kong_time_to_market/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/kong_time_to_market.png" referrerpolicy="no-referrer">
+            </div>Este post mostra como o Kong API Gateway, usado como BFF, pode diminuir de forma significativa o tempo de entrega de novas funcionalidades em aplicações web. Com base em um caso real e na análise do TCO (Total Cost of Ownership), irei mostrar que uma funcionalidade que normalmente levaria 15 dias para ser desenvolvida pode ser entregue em 6 a 12 dias, dependendo da experiência da equipe. Isso representa uma redução de 20% a 60% no tempo de desenvolvimento.]]></description>
+</item></channel>
+</rss>

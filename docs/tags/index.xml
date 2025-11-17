@@ -3,12 +3,40 @@
         <title>Tags - Tag - Victor Leandro</title>
         <link>https://victorleandroof.github.io/tags/</link>
         <description>Tags - Tag - Victor Leandro</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Fri, 24 Oct 2025 17:00:33 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>Arquitetura</title>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 16 Nov 2025 21:08:21 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>arquitetura</title>
     <link>https://victorleandroof.github.io/tags/arquitetura/</link>
-    <pubDate>Fri, 24 Oct 2025 17:00:33 -0300</pubDate>
+    <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
     <author>Autor</author>
     <guid>https://victorleandroof.github.io/tags/arquitetura/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>bff</title>
+    <link>https://victorleandroof.github.io/tags/bff/</link>
+    <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/bff/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>kong</title>
+    <link>https://victorleandroof.github.io/tags/kong/</link>
+    <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/kong/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>microfrontend</title>
+    <link>https://victorleandroof.github.io/tags/microfrontend/</link>
+    <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/microfrontend/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>time to market</title>
+    <link>https://victorleandroof.github.io/tags/time-to-market/</link>
+    <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/time-to-market/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>ISO 25010</title>
@@ -44,34 +72,6 @@
     <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
     <author>Autor</author>
     <guid>https://victorleandroof.github.io/tags/quarkus/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>springboot</title>
-    <link>https://victorleandroof.github.io/tags/springboot/</link>
-    <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/springboot/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>boas_praticas_nodejs</title>
-    <link>https://victorleandroof.github.io/tags/boas_praticas_nodejs/</link>
-    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/boas_praticas_nodejs/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>nodejs</title>
-    <link>https://victorleandroof.github.io/tags/nodejs/</link>
-    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/nodejs/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>perfomance</title>
-    <link>https://victorleandroof.github.io/tags/perfomance/</link>
-    <pubDate>Sun, 18 Jun 2023 14:01:34 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/perfomance/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
