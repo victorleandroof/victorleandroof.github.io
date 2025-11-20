@@ -2,15 +2,19 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://victorleandroof.github.io/tags/kafka/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandroof.github.io/tags/kafka-stream/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandroof.github.io/tags/microservice/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandroof.github.io/posts/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandroof.github.io/tags/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandroof.github.io/posts/kafka_stream/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://victorleandroof.github.io/</loc><lastmod>2025-11-20T15:00:18-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/posts/kong_time_to_market/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/arquitetura/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/bff/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/kong/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/microfrontend/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandroof.github.io/posts/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandroof.github.io/tags/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/time-to-market/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://victorleandroof.github.io/</loc><lastmod>2025-11-16T21:08:21-03:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/iso-25010/</loc><lastmod>2025-10-24T17:00:33-03:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://victorleandroof.github.io/posts/system_design_iso_25010/</loc><lastmod>2025-10-24T17:00:33-03:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://victorleandroof.github.io/tags/system-desing/</loc><lastmod>2025-10-24T17:00:33-03:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>

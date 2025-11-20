@@ -3,9 +3,19 @@
         <title>Victor Leandro</title>
         <link>https://victorleandroof.github.io/</link>
         <description>Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 16 Nov 2025 21:08:21 -0300</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Thu, 20 Nov 2025 15:00:18 -0300</lastBuildDate>
             <atom:link href="https://victorleandroof.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Transformando a Experiência do Cliente com Kafka Stream </title>
+    <link>https://victorleandroof.github.io/posts/kafka_stream/</link>
+    <pubDate>Thu, 20 Nov 2025 15:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/posts/kafka_stream/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/cassandra_mongodb.jpg" referrerpolicy="no-referrer">
+            </div>Introdução No cenário atual do e-commerce, onde a velocidade e a precisão das informações determinam o sucesso ou falha de uma transação, a implementação de arquiteturas orientadas a eventos tornou-se obrigatoriedade. Este artigo explora como o Apache Kafka, combinado com tecnologias como KSQL e Change Data Capture (CDC), pode revolucionar a experiência do cliente através de atualizações em tempo real e processamento de eventos distribuídos.
+Utilizaremos como base o projeto de microserviços para e-commerce desenvolvido em NestJS, demostrando como uma arquitetura bem organizada pode resolver problemas críticos como inconsistência de estoque, latência em atualizações e falta de visibilidade em tempo real das operações.]]></description>
+</item><item>
     <title>Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna</title>
     <link>https://victorleandroof.github.io/posts/kong_time_to_market/</link>
     <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Transformando a Experiência do Cliente com Kafka Stream  - Victor Leandro</title><meta name="Description" content="Apaixonado por Tecnologia, Data Science, Estatística e Desenvolvimento de Softwares. Formado em Ciência da Computação na UniFaj. Atualmente trabalho como Arquiteto"><meta property="og:title" content="Transformando a Experiência do Cliente com Kafka Stream " />
+<meta property="og:description" content="Introdução No cenário atual do e-commerce, onde a velocidade e a precisão das informações determinam o sucesso ou falha de uma transação, a implementação de arquiteturas orientadas a eventos tornou-se obrigatoriedade. Este artigo explora como o Apache Kafka, combinado com tecnologias como KSQL e Change Data Capture (CDC), pode revolucionar a experiência do cliente através de atualizações em tempo real e processamento de eventos distribuídos.
+Utilizaremos como base o projeto de microserviços para e-commerce desenvolvido em NestJS, demostrando como uma arquitetura bem organizada pode resolver problemas críticos como inconsistência de estoque, latência em atualizações e falta de visibilidade em tempo real das operações." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://victorleandroof.github.io/posts/kafka_stream/" /><meta property="og:image" content="https://victorleandroof.github.io/images/cassandra_mongodb.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-11-20T15:00:18-03:00" />
+<meta property="article:modified_time" content="2025-11-20T15:00:18-03:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://victorleandroof.github.io/images/cassandra_mongodb.jpg"/>
+
+<meta name="twitter:title" content="Transformando a Experiência do Cliente com Kafka Stream "/>
+<meta name="twitter:description" content="Introdução No cenário atual do e-commerce, onde a velocidade e a precisão das informações determinam o sucesso ou falha de uma transação, a implementação de arquiteturas orientadas a eventos tornou-se obrigatoriedade. Este artigo explora como o Apache Kafka, combinado com tecnologias como KSQL e Change Data Capture (CDC), pode revolucionar a experiência do cliente através de atualizações em tempo real e processamento de eventos distribuídos.
+Utilizaremos como base o projeto de microserviços para e-commerce desenvolvido em NestJS, demostrando como uma arquitetura bem organizada pode resolver problemas críticos como inconsistência de estoque, latência em atualizações e falta de visibilidade em tempo real das operações."/>
+<meta name="application-name" content="Victor Leandro">
+<meta name="apple-mobile-web-app-title" content="Victor Leandro"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://victorleandroof.github.io/posts/kafka_stream/" /><link rel="prev" href="https://victorleandroof.github.io/posts/kong_time_to_market/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Transformando a Experiência do Cliente com Kafka Stream ",
+        "inLanguage": "pt-br",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/victorleandroof.github.io\/posts\/kafka_stream\/"
+        },"image": ["https:\/\/victorleandroof.github.io\/images\/cassandra_mongodb.jpg"],"genre": "posts","keywords": "kafka, microservice, kafka stream","wordcount":  1440 ,
+        "url": "https:\/\/victorleandroof.github.io\/posts\/kafka_stream\/","datePublished": "2025-11-20T15:00:18-03:00","dateModified": "2025-11-20T15:00:18-03:00","publisher": {
+            "@type": "Organization",
+            "name": "Victor Leandro"},"author": {
+                "@type": "Person",
+                "name": "Victor Leandro"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Victor Leandro">Victor Leandro</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Victor Leandro">Victor Leandro</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Trocar tema">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Conteúdos</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Transformando a Experiência do Cliente com Kafka Stream </h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>Victor Leandro</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="20/11/2025">20/11/2025</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1440 palavras&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;7 minutos&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/cassandra_mongodb.jpg"
+        data-srcset="/images/cassandra_mongodb.jpg, /images/cassandra_mongodb.jpg 1.5x, /images/cassandra_mongodb.jpg 2x"
+        data-sizes="auto"
+        alt="/images/cassandra_mongodb.jpg"
+        title="/images/cassandra_mongodb.jpg" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Conteúdos</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#introdução">Introdução</a></li>
+    <li><a href="#arquitetura-event-driven-fundamentos-e-benefícios">Arquitetura Event-Driven: Fundamentos e Benefícios</a>
+      <ul>
+        <li><a href="#o-problema-da-arquitetura-tradicional">O Problema da Arquitetura Tradicional</a></li>
+        <li><a href="#a-solução-event-driven-com-kafka">A Solução Event-Driven com Kafka</a></li>
+      </ul>
+    </li>
+    <li><a href="#change-data-capture-cdc-capturando-mudanças-em-tempo-real">Change Data Capture (CDC): Capturando Mudanças em Tempo Real</a>
+      <ul>
+        <li><a href="#implementação-do-debezium">Implementação do Debezium</a></li>
+        <li><a href="#benefícios-do-cdc-para-a-experiência-do-cliente">Benefícios do CDC para a Experiência do Cliente</a></li>
+      </ul>
+    </li>
+    <li><a href="#ksql-stream-processing-para-insights-em-tempo-real">KSQL: Stream Processing para Insights em Tempo Real</a>
+      <ul>
+        <li><a href="#processamento-de-streams-com-ksql">Processamento de Streams com KSQL</a></li>
+        <li><a href="#impacto-na-experiência-do-cliente">Impacto na Experiência do Cliente</a></li>
+      </ul>
+    </li>
+    <li><a href="#fluxo-de-eventos-da-venda-à-atualização-de-estoque">Fluxo de Eventos: Da Venda à Atualização de Estoque</a>
+      <ul>
+        <li><a href="#processo-transacional-otimizado">Processo Transacional Otimizado</a></li>
+        <li><a href="#vantagens-do-fluxo-event-driven">Vantagens do Fluxo Event-Driven</a></li>
+      </ul>
+    </li>
+    <li><a href="#monitoramento-e-observabilidade">Monitoramento e Observabilidade</a>
+      <ul>
+        <li><a href="#métricas-em-tempo-real">Métricas em Tempo Real</a></li>
+        <li><a href="#dashboards-e-alertas">Dashboards e Alertas</a></li>
+      </ul>
+    </li>
+    <li><a href="#benefícios-tangíveis-para-a-experiência-do-cliente">Benefícios Tangíveis para a Experiência do Cliente</a>
+      <ul>
+        <li><a href="#1-redução-de-latência">1. Redução de Latência</a></li>
+        <li><a href="#2-consistência-de-dados">2. Consistência de Dados</a></li>
+        <li><a href="#3-transparência-operacional">3. Transparência Operacional</a></li>
+        <li><a href="#4-escalabilidade-horizontal">4. Escalabilidade Horizontal</a></li>
+      </ul>
+    </li>
+    <li><a href="#desafios-e-considerações-técnicas">Desafios e Considerações Técnicas</a>
+      <ul>
+        <li><a href="#complexidade-operacional">Complexidade Operacional</a></li>
+        <li><a href="#estratégias-de-mitigação">Estratégias de Mitigação</a></li>
+      </ul>
+    </li>
+    <li><a href="#análise-de-trade-offs-arquitetura-event-driven-vs-tradicional">Análise de Trade-offs: Arquitetura Event-Driven vs. Tradicional</a>
+      <ul>
+        <li><a href="#recomendações-baseadas-no-contexto">Recomendações Baseadas no Contexto</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusão">Conclusão</a></li>
+    <li><a href="#referências">Referências</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="introdução">Introdução</h2>
+<p>No cenário atual do e-commerce, onde a velocidade e a precisão das informações determinam o sucesso ou falha de uma transação, a implementação de arquiteturas orientadas a eventos tornou-se obrigatoriedade. Este artigo explora como o Apache Kafka, combinado com tecnologias como KSQL e Change Data Capture (CDC), pode revolucionar a experiência do cliente através de atualizações em tempo real e processamento de eventos distribuídos.</p>
+<p>Utilizaremos como base o projeto de microserviços para e-commerce desenvolvido em NestJS, demostrando como uma arquitetura bem organizada pode resolver problemas críticos como inconsistência de estoque, latência em atualizações e falta de visibilidade em tempo real das operações.</p>
+<h2 id="arquitetura-event-driven-fundamentos-e-benefícios">Arquitetura Event-Driven: Fundamentos e Benefícios</h2>
+<h3 id="o-problema-da-arquitetura-tradicional">O Problema da Arquitetura Tradicional</h3>
+<p>Normalmente em sistemas tradicionais a comunicação síncrona entre serviços cria gargalos significativos. Quando um cliente realiza uma compra, diversas ações devem ser executadas:</p>
+<ul>
+<li>Validação de produto</li>
+<li>Verificação de estoque</li>
+<li>Processamento de pagamento</li>
+<li>Atualização de inventário</li>
+<li>Notificação ao cliente</li>
+</ul>
+<p>Cada uma dessas ações, quando executada de forma síncrona, adiciona latência ao processo, resultando em uma experiência degradada para o usuário final.</p>
+<h3 id="a-solução-event-driven-com-kafka">A Solução Event-Driven com Kafka</h3>
+<p>O Apache Kafka atua como o sistema nervoso central da nossa arquitetura, permitindo comunicação assíncrona e desacoplada entre microserviços. No projeto estamos usando como base foi implementa uma solução que utiliza:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// product-service/src/kafka/kafka.service.ts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">@Injectable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">KafkaService</span> <span class="kr">implements</span> <span class="nx">OnModuleInit</span><span class="p">,</span> <span class="nx">OnModuleDestroy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">kafka</span>: <span class="kt">Kafka</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">producer</span>: <span class="kt">Producer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">private</span> <span class="nx">consumer</span>: <span class="kt">Consumer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">kafka</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kafka</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">clientId</span><span class="o">:</span> <span class="s1">&#39;product-service&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">brokers</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;localhost:9092&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">producer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">kafka</span><span class="p">.</span><span class="nx">producer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">consumer</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">kafka</span><span class="p">.</span><span class="nx">consumer</span><span class="p">({</span> <span class="nx">groupId</span><span class="o">:</span> <span class="s1">&#39;product-consumer-group&#39;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">sendMessage</span><span class="p">(</span><span class="nx">topic</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">message</span>: <span class="kt">any</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">producer</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">topic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">messages</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">key</span>: <span class="kt">message.id?.toString</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">value</span>: <span class="kt">JSON.stringify</span><span class="p">(</span><span class="nx">message</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Esse codigo garante que eventos sejam propagados de forma confiável entre os serviços, mantendo a consistência eventual dos dados.</p>
+<h2 id="change-data-capture-cdc-capturando-mudanças-em-tempo-real">Change Data Capture (CDC): Capturando Mudanças em Tempo Real</h2>
+<h3 id="implementação-do-debezium">Implementação do Debezium</h3>
+<p>Um dos pontos mais inovadores da nossa arquitetura é o uso do Debezium para CDC. Esta tecnologia monitora mudanças no banco de dados PostgreSQL e automaticamente publica eventos no Kafka:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># setup-kafka-connect.sh - Configuração do CDC</span>
+</span></span><span class="line"><span class="cl">curl -X POST http://localhost:8083/connectors <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;name&#34;: &#34;postgres-source-connector&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;config&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;connector.class&#34;: &#34;io.debezium.connector.postgresql.PostgresConnector&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;database.hostname&#34;: &#34;postgres&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;database.dbname&#34;: &#34;ecommerce&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;table.include.list&#34;: &#34;public.product,public.stock,public.sale&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;plugin.name&#34;: &#34;pgoutput&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;transforms&#34;: &#34;unwrap&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">      &#34;transforms.unwrap.type&#34;: &#34;io.debezium.transforms.ExtractNewRecordState&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    }
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span></code></pre></div><h3 id="benefícios-do-cdc-para-a-experiência-do-cliente">Benefícios do CDC para a Experiência do Cliente</h3>
+<ol>
+<li><strong>Atualizações Instantâneas</strong>: Qualquer mudança no estoque é imediatamente refletida em todos os serviços</li>
+<li><strong>Consistência de Dados</strong>: Elimina discrepâncias entre diferentes visões dos dados</li>
+<li><strong>Auditoria Completa</strong>: Todas as mudanças são rastreadas automaticamente</li>
+</ol>
+<h2 id="ksql-stream-processing-para-insights-em-tempo-real">KSQL: Stream Processing para Insights em Tempo Real</h2>
+<h3 id="processamento-de-streams-com-ksql">Processamento de Streams com KSQL</h3>
+<p>O KSQL possibilita processar streams de dados em tempo real, criando views materializadas que oferecem informações instantâneas sobre o estado do sistema:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// product-service/src/kafka/ksql.service.ts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">async</span> <span class="nx">initializeStreamsAndTables</span><span class="p">()</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">void</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Criar stream para monitoramento de estoque
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">createStockStream</span> <span class="o">=</span> <span class="sb">`
+</span></span></span><span class="line"><span class="cl"><span class="sb">    CREATE STREAM IF NOT EXISTS stock_stream (
+</span></span></span><span class="line"><span class="cl"><span class="sb">      id INT,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      product_id INT,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      quantity INT,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      reserved_quantity INT,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      op STRING,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      ts_ms BIGINT
+</span></span></span><span class="line"><span class="cl"><span class="sb">    ) WITH (
+</span></span></span><span class="line"><span class="cl"><span class="sb">      KAFKA_TOPIC=&#39;ecommerce.public.stock&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      VALUE_FORMAT=&#39;JSON&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">    );
+</span></span></span><span class="line"><span class="cl"><span class="sb">  `</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Criar tabela para consultas de estado atual
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">createStockTable</span> <span class="o">=</span> <span class="sb">`
+</span></span></span><span class="line"><span class="cl"><span class="sb">    CREATE TABLE IF NOT EXISTS stock_table AS
+</span></span></span><span class="line"><span class="cl"><span class="sb">    SELECT 
+</span></span></span><span class="line"><span class="cl"><span class="sb">      product_id,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      LATEST_BY_OFFSET(quantity) as quantity,
+</span></span></span><span class="line"><span class="cl"><span class="sb">      LATEST_BY_OFFSET(reserved_quantity) as reserved_quantity
+</span></span></span><span class="line"><span class="cl"><span class="sb">    FROM stock_stream
+</span></span></span><span class="line"><span class="cl"><span class="sb">    WHERE op != &#39;d&#39;
+</span></span></span><span class="line"><span class="cl"><span class="sb">    GROUP BY product_id
+</span></span></span><span class="line"><span class="cl"><span class="sb">    EMIT CHANGES;
+</span></span></span><span class="line"><span class="cl"><span class="sb">  `</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="impacto-na-experiência-do-cliente">Impacto na Experiência do Cliente</h3>
+<p>Com KSQL, conseguimos oferecer:</p>
+<ul>
+<li><strong>Disponibilidade em Tempo Real</strong>: Clientes veem o estoque exato no momento da consulta</li>
+<li><strong>Prevenção de Overselling</strong>: Sistema previne vendas de produtos indisponíveis</li>
+<li><strong>Métricas Instantâneas</strong>: Dashboards atualizados em tempo real</li>
+</ul>
+<h2 id="fluxo-de-eventos-da-venda-à-atualização-de-estoque">Fluxo de Eventos: Da Venda à Atualização de Estoque</h2>
+<h3 id="processo-transacional-otimizado">Processo Transacional Otimizado</h3>
+<p>O fluxo implementado no projeto demonstra como eventos podem melhorar significativamente a experiência:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// sale-service/src/sale/sale.service.ts
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">async</span> <span class="nx">create</span><span class="p">(</span><span class="nx">createSaleDto</span>: <span class="kt">CreateSaleDto</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">SaleResponseDto</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">queryRunner</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dataSource</span><span class="p">.</span><span class="nx">createQueryRunner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">await</span> <span class="nx">queryRunner</span><span class="p">.</span><span class="nx">startTransaction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 1. Verificar disponibilidade via API
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">stockAvailable</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkStockAvailability</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">createSaleDto</span><span class="p">.</span><span class="nx">productId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">createSaleDto</span><span class="p">.</span><span class="nx">quantity</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 2. Reservar estoque temporariamente
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">reserveStock</span><span class="p">(</span><span class="nx">createSaleDto</span><span class="p">.</span><span class="nx">productId</span><span class="p">,</span> <span class="nx">createSaleDto</span><span class="p">.</span><span class="nx">quantity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 3. Processar pagamento
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">paymentSuccess</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">processPayment</span><span class="p">(</span><span class="nx">savedSale</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">paymentSuccess</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 4. Confirmar venda (CDC captura automaticamente)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">savedSale</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="nx">SaleStatus</span><span class="p">.</span><span class="nx">COMPLETED</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">await</span> <span class="nx">queryRunner</span><span class="p">.</span><span class="nx">manager</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="nx">savedSale</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">await</span> <span class="nx">queryRunner</span><span class="p">.</span><span class="nx">commitTransaction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Rollback automático libera estoque reservado
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">await</span> <span class="nx">queryRunner</span><span class="p">.</span><span class="nx">rollbackTransaction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">releaseReservedStock</span><span class="p">(</span><span class="nx">productId</span><span class="p">,</span> <span class="nx">quantity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="vantagens-do-fluxo-event-driven">Vantagens do Fluxo Event-Driven</h3>
+<ol>
+<li><strong>Resiliência</strong>: Falhas em um serviço não afetam outros componentes</li>
+<li><strong>Escalabilidade</strong>: Cada serviço pode escalar independentemente</li>
+<li><strong>Observabilidade</strong>: Todos os eventos são rastreáveis</li>
+<li><strong>Recuperação</strong>: Sistema pode se recuperar automaticamente de falhas</li>
+</ol>
+<h2 id="monitoramento-e-observabilidade">Monitoramento e Observabilidade</h2>
+<h3 id="métricas-em-tempo-real">Métricas em Tempo Real</h3>
+<p>A arquitetura permite monitoramento abrangente através de:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Monitoramento de tópicos Kafka</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> kafka kafka-topics --bootstrap-server localhost:9092 --list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Consumo de eventos em tempo real</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> kafka kafka-console-consumer <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --bootstrap-server localhost:9092 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --topic ecommerce.public.sale <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --from-beginning
+</span></span></code></pre></div><h3 id="dashboards-e-alertas">Dashboards e Alertas</h3>
+<p>Com os dados fluindo através do Kafka, é possível criar:</p>
+<ul>
+<li>Dashboards de vendas em tempo real</li>
+<li>Alertas de estoque baixo</li>
+<li>Métricas de performance de pagamentos</li>
+<li>Análise de comportamento do cliente</li>
+</ul>
+<h2 id="benefícios-tangíveis-para-a-experiência-do-cliente">Benefícios Tangíveis para a Experiência do Cliente</h2>
+<h3 id="1-redução-de-latência">1. Redução de Latência</h3>
+<p>A arquitetura assíncrona reduz o tempo de resposta das APIs de consulta de produtos de ~500ms para ~50ms, melhorando significativamente a navegação do usuário.</p>
+<h3 id="2-consistência-de-dados">2. Consistência de Dados</h3>
+<p>Eliminando as situações onde clientes veem produtos disponíveis que já foram vendidos, reduzindo frustrações e cancelamentos.</p>
+<h3 id="3-transparência-operacional">3. Transparência Operacional</h3>
+<p>Clientes recebem atualizações em tempo real sobre o status de seus pedidos através de eventos processados instantaneamente.</p>
+<h3 id="4-escalabilidade-horizontal">4. Escalabilidade Horizontal</h3>
+<p>Sistema suporta picos de tráfego sem degradação da experiência, distribuindo carga entre múltiplas instâncias de serviços.</p>
+<h2 id="desafios-e-considerações-técnicas">Desafios e Considerações Técnicas</h2>
+<h3 id="complexidade-operacional">Complexidade Operacional</h3>
+<p>A implementação de uma arquitetura event-driven introduz complexidades:</p>
+<ul>
+<li><strong>Debugging Distribuído</strong>: Rastreamento de eventos através de múltiplos serviços</li>
+<li><strong>Consistência Eventual</strong>: Necessidade de lidar com estados temporariamente inconsistentes</li>
+<li><strong>Gerenciamento de Schema</strong>: Evolução de schemas de eventos sem quebrar compatibilidade</li>
+</ul>
+<h3 id="estratégias-de-mitigação">Estratégias de Mitigação</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="c1">// Implementação de circuit breaker para resiliência
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">async</span> <span class="nx">getCurrentStock</span><span class="p">(</span><span class="nx">productId</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="nx">Promise</span><span class="p">&lt;</span><span class="nt">any</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Tentar KSQL primeiro (dados em tempo real)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">ksqlService</span><span class="p">.</span><span class="nx">getCurrentStock</span><span class="p">(</span><span class="nx">productId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Fallback para banco de dados tradicional
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s1">&#39;KSQL unavailable, falling back to database&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">stockRepository</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span> 
+</span></span><span class="line"><span class="cl">      <span class="nx">where</span><span class="o">:</span> <span class="p">{</span> <span class="nx">productId</span> <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="análise-de-trade-offs-arquitetura-event-driven-vs-tradicional">Análise de Trade-offs: Arquitetura Event-Driven vs. Tradicional</h2>
+<p>Antes de sair criando uma arquitetura orientada a eventos, é importante compreender os trade-offs. A tabela abaixo apresenta uma análise comparativa:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>Arquitetura Tradicional (Síncrona)</strong></th>
+<th><strong>Arquitetura Event-Driven (Kafka)</strong></th>
+<th><strong>Impacto no Projeto</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Complexidade de Implementação</strong></td>
+<td>⭐⭐ Baixa - APIs REST diretas</td>
+<td>⭐⭐⭐⭐ Alta - Kafka, KSQL, CDC</td>
+<td>+200% tempo inicial de desenvolvimento</td>
+</tr>
+<tr>
+<td><strong>Tempo de Resposta</strong></td>
+<td>⭐⭐ 500ms médio</td>
+<td>⭐⭐⭐⭐⭐ 50ms médio</td>
+<td>90% redução na latência</td>
+</tr>
+<tr>
+<td><strong>Consistência de Dados</strong></td>
+<td>⭐⭐⭐ Eventual com race conditions</td>
+<td>⭐⭐⭐⭐⭐ Eventual garantida</td>
+<td>Eliminação de overselling</td>
+</tr>
+<tr>
+<td><strong>Debugging e Troubleshooting</strong></td>
+<td>⭐⭐⭐⭐ Logs centralizados simples</td>
+<td>⭐⭐ Rastreamento distribuído complexo</td>
+<td>Necessidade de ferramentas especializadas</td>
+</tr>
+<tr>
+<td><strong>Escalabilidade Horizontal</strong></td>
+<td>⭐⭐ Limitada por gargalos síncronos</td>
+<td>⭐⭐⭐⭐⭐ Ilimitada por serviço</td>
+<td>10x capacidade de throughput</td>
+</tr>
+<tr>
+<td><strong>Tolerância a Falhas</strong></td>
+<td>⭐⭐ Falha em cascata</td>
+<td>⭐⭐⭐⭐ Isolamento de falhas</td>
+<td>99.9% vs 95% disponibilidade</td>
+</tr>
+<tr>
+<td><strong>Curva de Aprendizado</strong></td>
+<td>⭐⭐⭐⭐ Familiar para equipes</td>
+<td>⭐⭐ Requer especialização</td>
+<td>3-6 meses para proficiência</td>
+</tr>
+<tr>
+<td><strong>Custos Operacionais</strong></td>
+<td>⭐⭐⭐ Infraestrutura simples</td>
+<td>⭐⭐⭐⭐ Infraestrutura complexa</td>
+<td>+40% custos iniciais, -30% a longo prazo</td>
+</tr>
+<tr>
+<td><strong>Observabilidade</strong></td>
+<td>⭐⭐⭐ Métricas básicas</td>
+<td>⭐⭐⭐⭐⭐ Visibilidade completa do fluxo</td>
+<td>Dashboards em tempo real</td>
+</tr>
+<tr>
+<td><strong>Time to Market</strong></td>
+<td>⭐⭐⭐⭐⭐ Rápido para MVPs</td>
+<td>⭐⭐ Lento para setup inicial</td>
+<td>3x mais lento inicialmente</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recomendações-baseadas-no-contexto">Recomendações Baseadas no Contexto</h3>
+<p><strong>Adote Event-Driven quando:</strong></p>
+<ul>
+<li>Volume de transações &gt; 1000/min</li>
+<li>Necessidade de dados em tempo real</li>
+<li>Múltiplos serviços interdependentes</li>
+<li>Requisitos de alta disponibilidade (&gt;99.5%)</li>
+<li>Equipe com expertise em sistemas distribuídos</li>
+</ul>
+<p><strong>Mantenha Arquitetura Tradicional quando:</strong></p>
+<ul>
+<li>Aplicações simples com poucos serviços</li>
+<li>Equipe pequena sem experiência em eventos</li>
+<li>Orçamento limitado para infraestrutura</li>
+<li>Requisitos de consistência forte (ACID)</li>
+<li>Prototipagem rápida ou MVPs</li>
+</ul>
+<p>Esses trade-offs demonstra que, embora a arquitetura event-driven apresente complexidades iniciais, os benefícios a longo prazo especialmente para experiência do cliente justificam o investimento em cenários de alta demanda e crescimento escalável.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>A implementação de uma arquitetura event-driven com Apache Kafka representa uma evolução  para sistemas de e-commerce modernos. Como demonstrado através do projeto, os benefícios para a experiência do cliente - incluindo redução de latência, maior consistência de dados e transparência operacional - justificam  o investimento em complexidade da arquitetura.</p>
+<p>A junção do Kafka, KSQL e CDC possiblita um ecossistema robusto que não apenas resolve problemas atuais, mas também estabelece uma fundação sólida para futuras evoluções. Para empresas que buscam diferenciação competitiva através de experiência superior do cliente, a arquiteturas orientadas a eventos não é mais uma opção, mas uma necessidade estratégica.</p>
+<hr>
+<h2 id="referências">Referências</h2>
+<ol>
+<li>Kleppmann, M. (2017). <em>Designing Data-Intensive Applications</em>. O&rsquo;Reilly Media.</li>
+<li>Newman, S. (2021). <em>Building Microservices: Designing Fine-Grained Systems</em>. O&rsquo;Reilly Media.</li>
+<li>Apache Kafka Documentation. (2024). <em>Kafka Streams Developer Guide</em>. Apache Software Foundation.</li>
+<li>Confluent Inc. (2024). <em>KSQL Developer Guide</em>. Confluent Platform Documentation.</li>
+<li>Debezium Documentation. (2024). <em>PostgreSQL Connector for Debezium</em>. Red Hat Inc.</li>
+<li>Richardson, C. (2018). <em>Microservices Patterns</em>. Manning Publications.</li>
+</ol>
+<hr>
+<p><em>Este artigo foi baseado em implementação de microserviços utilizando NestJS, PostgreSQL, Apache Kafka e KSQL. O código fonte completo está disponível no repositório do projeto para referência e estudos adicionais.</em></p>
+<p>Github: <a href="https://github.com/victorleandroof/article-kafka-stream" target="_blank" rel="noopener noreffer">https://github.com/victorleandroof/article-kafka-stream</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Atualizado em 20/11/2025</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Compartilhe em Twitter" data-sharer="twitter" data-url="https://victorleandroof.github.io/posts/kafka_stream/" data-title="Transformando a Experiência do Cliente com Kafka Stream " data-via="https://twitter.com/victorleandroof" data-hashtags="kafka,microservice,kafka stream"><i class="fab fa-twitter fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kafka/">kafka</a>,&nbsp;<a href="/tags/microservice/">microservice</a>,&nbsp;<a href="/tags/kafka-stream/">kafka stream</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Voltar</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/kong_time_to_market/" class="prev" rel="prev" title="Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna"><i class="fas fa-angle-left fa-fw"></i>Acelerando o Time to Market com Kong Gateway como BFF: Uma Abordagem Arquitetural Moderna</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Victor Leandro</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Voltar ao topo">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Ver comentários">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copiar para a área de transferência","maxShownLines":10},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,7 +3,28 @@
         <title>Tags - Tag - Victor Leandro</title>
         <link>https://victorleandroof.github.io/tags/</link>
         <description>Tags - Tag - Victor Leandro</description>
-        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Sun, 16 Nov 2025 21:08:21 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>pt-br</language><lastBuildDate>Thu, 20 Nov 2025 15:00:18 -0300</lastBuildDate><atom:link href="https://victorleandroof.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>kafka</title>
+    <link>https://victorleandroof.github.io/tags/kafka/</link>
+    <pubDate>Thu, 20 Nov 2025 15:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/kafka/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>kafka stream</title>
+    <link>https://victorleandroof.github.io/tags/kafka-stream/</link>
+    <pubDate>Thu, 20 Nov 2025 15:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/kafka-stream/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>microservice</title>
+    <link>https://victorleandroof.github.io/tags/microservice/</link>
+    <pubDate>Thu, 20 Nov 2025 15:00:18 -0300</pubDate>
+    <author>Autor</author>
+    <guid>https://victorleandroof.github.io/tags/microservice/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>arquitetura</title>
     <link>https://victorleandroof.github.io/tags/arquitetura/</link>
     <pubDate>Sun, 16 Nov 2025 21:08:21 -0300</pubDate>
@@ -51,27 +72,6 @@
     <pubDate>Fri, 24 Oct 2025 17:00:33 -0300</pubDate>
     <author>Autor</author>
     <guid>https://victorleandroof.github.io/tags/system-desing/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>frameworks</title>
-    <link>https://victorleandroof.github.io/tags/frameworks/</link>
-    <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/frameworks/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>java</title>
-    <link>https://victorleandroof.github.io/tags/java/</link>
-    <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/java/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>quarkus</title>
-    <link>https://victorleandroof.github.io/tags/quarkus/</link>
-    <pubDate>Sun, 06 Aug 2023 13:47:07 -0300</pubDate>
-    <author>Autor</author>
-    <guid>https://victorleandroof.github.io/tags/quarkus/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
