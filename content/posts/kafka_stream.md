@@ -3,11 +3,11 @@ title: "Transformando a Experiência do Cliente com Kafka Stream "
 date: 2025-11-20T15:00:18-03:00
 draft: false
 tags: [kafka, microservice, kafka stream]
-featuredImage: "/images/cassandra_mongodb.jpg"
-featuredImagePreview: "/images/cassandra_mongodb.jpg"
-images: [/images/cassandra_mongodb.jpg]
+featuredImage: "/images/kafka_stream.png"
+featuredImagePreview: "/images/kafka_stream.png"
+images: [/images/kafka_stream.png]
 seo:
-    images: [/images/cassandra_mongodb.jpg]
+    images: [/images/kafka_stream.png]
 ---
 
 

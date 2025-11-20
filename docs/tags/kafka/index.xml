@@ -10,7 +10,7 @@
     <author>Autor</author>
     <guid>https://victorleandroof.github.io/posts/kafka_stream/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/images/cassandra_mongodb.jpg" referrerpolicy="no-referrer">
+                <img src="/images/kafka_stream.png" referrerpolicy="no-referrer">
             </div>Introdução No cenário atual do e-commerce, onde a velocidade e a precisão das informações determinam o sucesso ou falha de uma transação, a implementação de arquiteturas orientadas a eventos tornou-se obrigatoriedade. Este artigo explora como o Apache Kafka, combinado com tecnologias como KSQL e Change Data Capture (CDC), pode revolucionar a experiência do cliente através de atualizações em tempo real e processamento de eventos distribuídos.
 Utilizaremos como base o projeto de microserviços para e-commerce desenvolvido em NestJS, demostrando como uma arquitetura bem organizada pode resolver problemas críticos como inconsistência de estoque, latência em atualizações e falta de visibilidade em tempo real das operações.]]></description>
 </item></channel>
